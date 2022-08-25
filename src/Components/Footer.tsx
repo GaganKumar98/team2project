@@ -147,7 +147,7 @@ const Footer = () => {
 					</div>
 					<p className="text-center p-3" style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}>
 						<p>
-							<a className="text-white" href="https://nagarro.com/">
+							<a className="text-white" href="https://nagarro.com/" style={{ textDecoration: "none" }}>
 								Nagarro
 							</a>
 							&nbsp;© 2022. All rights reserved.
