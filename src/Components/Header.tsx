@@ -13,7 +13,9 @@ export const Header = () => {
 						</button>
 					</form>
 					<button className="btn btnHeader" style={{ backgroundColor: "rgb(127, 189, 255)", margin: "10px" }}>
-						<Link to="/add">Add New</Link>
+						<Link to="/add" style={{ textDecoration: "none", color: "black" }}>
+							Add New
+						</Link>
 					</button>
 				</div>
 			</div>
