@@ -34,7 +34,3 @@ const AddQnA = () => {
 };
 
 export default AddQnA;
-
-{
-  /* <textarea className="form-control" rows={3} /> */
-}
