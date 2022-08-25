@@ -1,4 +1,3 @@
-
 export const Header = () => {
   return <>
     <div className="container-fluid d-flex  align-items-center justify-content-between header" style={{ backgroundColor:" rgb(236, 225, 178)"}}>
