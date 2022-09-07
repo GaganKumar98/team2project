@@ -16,7 +16,7 @@ export const useFetchData = () => {
       const data = await response.json();
       //   console.log(data)
 
-      setTransformedData(data);
+      setTransformedData(data.Items);
     } catch (err) {
       console.log("error", err);
     }

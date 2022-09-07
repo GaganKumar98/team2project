@@ -97,7 +97,10 @@ const Footer = () => {
           </div>
           <p
             className="text-center p-3"
-            style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
+            style={{
+              backgroundColor: "rgba(0, 0, 0, 0.2)",
+              marginBottom: "0rem",
+            }}
           >
             <p>
               <a
