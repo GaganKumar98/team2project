@@ -1,26 +1,19 @@
-import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useFetchData } from "./useFetchData";
+import  { useState } from "react";
+import {  useNavigate } from "react-router-dom";
+
 const AddQnA = () => {
   const [Question, setQuestion] = useState("");
   const [Answer, setAnswer] = useState("");
   let navigate = useNavigate();
-  // let {transformedData,setTransformedData}=useFetchData()
-  // console.log(transformedData)
-  const handleAdd = () => {
-    // const newData:any={
-    // 		id:1000,
-    // 		questions:Question,
-    // 		answers:Answer
-    // 		  }
-    // const getData=JSON.stringify(newData);
-    // console.log(getData)
-    // fetch('http://localhost:5000/Questions', {
-    // 	method: 'POST',
-    // 	body: getData
-    //   })
 
-    const data = { questions: Question, answers: Answer };
+  const handleAdd = () => {
+    if(Question==="" || Answer==""){
+      alert("please Add all the fields");
+      return;
+    }
+   
+
+    const data = { question: Question, answer: Answer };
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -29,22 +22,11 @@ const AddQnA = () => {
     fetch("http://localhost:5000/Questions", requestOptions)
       .then((response) => response)
       .then((res) => console.log(res));
-    alert("Data Insert");
+    alert("Data Inserted");
     navigate("/");
-    // 	console.log("handle Add")
-    // 	console.log(Question)
-    // 	console.log(Answer)
-    // 	const newData:any={
-    // 		userId:1,
-    // 		id:1,
-    // 		title:Question,
-    // 		body:Answer
-    // 	  }
-    // 	  console.log(typeof(transformedData))
-    // 	setTransformedData(()=>[...transformedData,newData]
-    // 	)
+    
   };
-  // console.log(typeof(transformedData))
+  
   return (
     <>
       <div className="container-lg mt-3">
