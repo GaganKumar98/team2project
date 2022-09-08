@@ -1,17 +1,20 @@
-import  { useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import SweetAlert from "react-bootstrap-sweetalert";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const AddQnA = () => {
   const [Question, setQuestion] = useState("");
   const [Answer, setAnswer] = useState("");
   let navigate = useNavigate();
+  const MySwal = withReactContent(Swal);
 
   const handleAdd = () => {
-    if(Question==="" || Answer==""){
+    if (Question === "" || Answer == "") {
       alert("please Add all the fields");
       return;
     }
-   
 
     const data = { question: Question, answer: Answer };
     const requestOptions = {
@@ -22,11 +25,15 @@ const AddQnA = () => {
     fetch("http://localhost:5000/Questions", requestOptions)
       .then((response) => response)
       .then((res) => console.log(res));
-    alert("Data Inserted");
+    // alert("Data Inserted");
+    MySwal.fire(
+      "Question Answer Added!",
+      "You are being redirected to Home Page.",
+      "success"
+    );
     navigate("/");
-    
   };
-  
+
   return (
     <>
       <div className="container-lg mt-3">

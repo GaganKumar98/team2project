@@ -1,8 +1,7 @@
 import React, { useCallback, useState } from "react";
 
-export const useFetchData = () => {
-  const [transformedData, setTransformedData] =
-    useState<React.SetStateAction<any>>();
+export const useFetchResults = () => {
+  const [results, setResults] = useState<React.SetStateAction<any>>();
   const [loading, setLoading] = useState(false);
 
   const kFetch = useCallback(async (_url: any) => {
@@ -16,11 +15,11 @@ export const useFetchData = () => {
       const data = await response.json();
       console.log(data.Items);
 
-      setTransformedData(data.Items);
+      setResults(data.Items);
     } catch (err) {
       console.log("error", err);
     }
     setLoading(false);
   }, []);
-  return { transformedData, loading, kFetch, setTransformedData };
+  return { results, loading, kFetch, setResults };
 };

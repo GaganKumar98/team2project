@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { Pagination } from "../services/Pgination";
-import { useFetchData } from "./useFetchData";
 
-export const Home = ({ searchTerm }: any) => {
-  let { transformedData, kFetch } = useFetchData();
-
+export const Home = ({ transformedData, kFetch }: any) => {
   useEffect(() => {
     kFetch("http://localhost:5000/questions");
   }, []);
@@ -34,54 +31,54 @@ export const Home = ({ searchTerm }: any) => {
         </h1>
       </div>
 
+      {/* filter((val:any) => {
+        if (searchTerm === "") {
+          return val;
+        } else if (
+          val.question.toLowerCase().includes(searchTerm.toLowerCase())
+        ) {
+          return val;
+        }
+        return;
+      }). */}
+
       {transformedData &&
-        currentPost
-          .filter((val: any) => {
-            if (searchTerm === "") {
-              return val;
-            } else if (
-              val.question.toLowerCase().includes(searchTerm.toLowerCase())
-            ) {
-              return val;
-            }
-            return;
-          })
-          .map((val: any, key: any) => {
-            return (
-              <div
-                className="accordion"
-                id="accordionExample"
-                key={key}
-                style={{ marginBottom: "10px" }}
-              >
-                <div className="accordion-item">
-                  <h2
-                    className="accordion-header"
-                    id={`heading` + val.questionId}
+        currentPost.map((val: any, key: any) => {
+          return (
+            <div
+              className="accordion"
+              id="accordionExample"
+              key={key}
+              style={{ marginBottom: "10px" }}
+            >
+              <div className="accordion-item">
+                <h2
+                  className="accordion-header"
+                  id={`heading` + val.questionId}
+                >
+                  <button
+                    className="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target={`#collapse` + val.questionId}
+                    aria-expanded="true"
+                    aria-controls={`collapse` + val.questionId}
                   >
-                    <button
-                      className="accordion-button"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target={`#collapse` + val.questionId}
-                      aria-expanded="true"
-                      aria-controls={`collapse` + val.questionId}
-                    >
-                      Question: {val.question}
-                    </button>
-                  </h2>
-                  <div
-                    id={`collapse` + val.questionId}
-                    className="accordion-collapse collapse"
-                    aria-labelledby={`heading` + val.questionId}
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div className="accordion-body">Answer: {val.answer}</div>
-                  </div>
+                    Question: {val.question}
+                  </button>
+                </h2>
+                <div
+                  id={`collapse` + val.questionId}
+                  className="accordion-collapse collapse"
+                  aria-labelledby={`heading` + val.questionId}
+                  data-bs-parent="#accordionExample"
+                >
+                  <div className="accordion-body">Answer: {val.answer}</div>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          );
+        })}
 
       {transformedData && (
         <Pagination

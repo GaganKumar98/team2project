@@ -1,6 +1,36 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-export const Header = ({ setSearchTerm }: any) => {
+export const Header = ({
+  transformedData,
+  kFetch,
+  setTransformedData,
+  searchTerm,
+  setSearchTerm,
+}: any) => {
+  //old working
+  // const searchHandle = (event: any) => {
+  //   let key = event.target.value;
+  //1
+  // let result: any = await fetch(`http://localhost:5000/Questionsans/${key}`);
+  // result = await result.json();
+  // if (result) {
+  //   setTransformedData(result.Items);
+  //   console.log(result.Items);
+  // }
+  //1
+  //   kFetch(`http://localhost:5000/Questionsans/${key}`);
+  // };
+
+  let navigate = useNavigate();
+  const [temp, setTemp] = useState("");
+
+  const searchHandle = (e: any) => {
+    e.preventDefault();
+    setSearchTerm(temp);
+    navigate("/results");
+  };
+
   return (
     <>
       <div
@@ -21,11 +51,10 @@ export const Header = ({ setSearchTerm }: any) => {
               type="search"
               placeholder="Search"
               aria-label="Search"
-              onChange={(event) => {
-                setSearchTerm(event.target.value);
-              }}
+              onChange={(event) => setTemp(event.target.value)}
+              // onChange={searchHandle}
             />
-            <button className="btn" type="submit">
+            <button className="btn" type="submit" onClick={searchHandle}>
               <img
                 src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E"
                 alt="search"

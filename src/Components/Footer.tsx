@@ -102,16 +102,14 @@ const Footer = () => {
               marginBottom: "0rem",
             }}
           >
-            <p>
-              <a
-                className="text-white"
-                href="https://nagarro.com/"
-                style={{ textDecoration: "none" }}
-              >
-                Nagarro
-              </a>
-              &nbsp;© 2022. All rights reserved.
-            </p>
+            <a
+              className="text-white"
+              href="https://nagarro.com/"
+              style={{ textDecoration: "none" }}
+            >
+              Nagarro
+            </a>
+            &nbsp;© 2022. All rights reserved.
           </p>
         </footer>
       </div>
