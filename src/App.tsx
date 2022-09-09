@@ -9,6 +9,7 @@ import Results from "./Components/Results";
 import Test from "./Components/Test";
 import { Home } from "./Components/Home";
 import { useFetchData } from "./Components/useFetchData";
+import { Details } from "./Components/Details";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -33,6 +34,7 @@ function App() {
         <Route path="/results" element={<Results searchTerm={searchTerm} />} />
         <Route path="/add" element={<AddQnA />} />
         <Route path="*" element={<Error />} />
+        <Route path="/Details/:id" element={<Details />} />
       </Routes>
       <Footer />
     </div>

@@ -6,22 +6,15 @@ const Results = ({ searchTerm }: any) => {
 
   useEffect(() => {
     kFetch(`http://localhost:5000/questionsans/${searchTerm}`);
-  }, []);
+  }, [results]);
 
   return (
     <>
-      <div className="container">
-        {/* {results &&
-        results.map((data: any) => {
-          return (
-            <div>
-              <div>
-                <h2>Question: {data.question.S}</h2>
-                <div>Answer: {data.answer.S}</div>
-              </div>
-            </div>
-          );
-        })} */}
+      <div className="container mt-5">
+        <div>
+          <h3 style={{ marginBottom: "20px" }}>Results</h3>
+        </div>
+
         {results &&
           results.map((val: any, key: any) => {
             return (
@@ -34,23 +27,23 @@ const Results = ({ searchTerm }: any) => {
                 <div className="accordion-item">
                   <h2
                     className="accordion-header"
-                    id={`heading` + val.questionId}
+                    id={`heading` + val.questionId.S}
                   >
                     <button
                       className="accordion-button"
                       type="button"
                       data-bs-toggle="collapse"
-                      data-bs-target={`#collapse` + val.questionId}
+                      data-bs-target={`#collapse` + val.questionId.S}
                       aria-expanded="true"
-                      aria-controls={`collapse` + val.questionId}
+                      aria-controls={`collapse` + val.questionId.S}
                     >
                       Question: {val.question.S}
                     </button>
                   </h2>
                   <div
-                    id={`collapse` + val.questionId}
+                    id={`collapse` + val.questionId.S}
                     className="accordion-collapse collapse"
-                    aria-labelledby={`heading` + val.questionId}
+                    aria-labelledby={`heading` + val.questionId.S}
                     data-bs-parent="#accordionExample"
                   >
                     <div className="accordion-body">Answer: {val.answer.S}</div>

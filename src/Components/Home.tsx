@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Pagination } from "../services/Pgination";
 
 export const Home = ({ transformedData, kFetch }: any) => {
@@ -30,19 +31,46 @@ export const Home = ({ transformedData, kFetch }: any) => {
           Question <span style={{ color: "red" }}>&</span> Answer
         </h1>
       </div>
+      <div className="row">
+        {transformedData &&
+          currentPost.map((val: any, key: any) => {
+            return (
+              <div className="col-lg-4 mb-4">
+                <div className="card">
+                  {/* <img className="card-img-top" src="" alt=""> */}
 
-      {/* filter((val:any) => {
-        if (searchTerm === "") {
-          return val;
-        } else if (
-          val.question.toLowerCase().includes(searchTerm.toLowerCase())
-        ) {
-          return val;
-        }
-        return;
-      }). */}
+                  <div className="card-body">
+                    <h5 className="card-title">{val.question}</h5>
+                    <p className="card-text text-truncate">{val.answer}</p>
+                    <Link to={`/Details/${val.questionId}`}>Read More</Link>
+                    <a href="#" className="btn btn-outline-secondary btn-sm">
+                      <i className="far fa-heart"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+      </div>
 
-      {transformedData &&
+      {/* <div className="card" style={{ width: "18rem;" }}>
+        <div className="card-body">
+          <h5 className="card-title">Card title</h5>
+          <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
+          <p className="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+          <a href="#" className="card-link">
+            Card link
+          </a>
+          <a href="#" className="card-link">
+            Another link
+          </a>
+        </div>
+      </div> */}
+
+      {/* {transformedData &&
         currentPost.map((val: any, key: any) => {
           return (
             <div
@@ -78,16 +106,16 @@ export const Home = ({ transformedData, kFetch }: any) => {
               </div>
             </div>
           );
-        })}
+        })} */}
 
-      {transformedData && (
+      {/* {transformedData && (
         <Pagination
           first={postsPerPage}
           last={transformedData.length}
           paginate={paginate}
           currentPage={currentPage}
         />
-      )}
+      )} */}
     </div>
   );
 };

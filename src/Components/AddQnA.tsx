@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SweetAlert from "react-bootstrap-sweetalert";
+// import SweetAlert from "react-bootstrap-sweetalert";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
@@ -15,7 +15,6 @@ const AddQnA = () => {
       alert("please Add all the fields");
       return;
     }
-
     const data = { question: Question, answer: Answer };
     const requestOptions = {
       method: "POST",

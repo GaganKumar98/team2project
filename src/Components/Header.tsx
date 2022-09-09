@@ -8,26 +8,16 @@ export const Header = ({
   searchTerm,
   setSearchTerm,
 }: any) => {
-  //old working
-  // const searchHandle = (event: any) => {
-  //   let key = event.target.value;
-  //1
-  // let result: any = await fetch(`http://localhost:5000/Questionsans/${key}`);
-  // result = await result.json();
-  // if (result) {
-  //   setTransformedData(result.Items);
-  //   console.log(result.Items);
-  // }
-  //1
-  //   kFetch(`http://localhost:5000/Questionsans/${key}`);
-  // };
-
   let navigate = useNavigate();
   const [temp, setTemp] = useState("");
 
   const searchHandle = (e: any) => {
     e.preventDefault();
-    setSearchTerm(temp);
+    if (temp == "") {
+      alert("Please enter the fields ");
+      return;
+    }
+    setSearchTerm(temp.toLowerCase());
     navigate("/results");
   };
 
