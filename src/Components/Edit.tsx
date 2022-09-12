@@ -21,6 +21,22 @@ export const Edit = ({ details, onEdit }: any) => {
   const handleSave = () => {
     var newAnswer: any = Answer;
     var newQuestion: any = Question;
+    const current = new Date();
+    const currentDateTime = current.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      // hour12: false,
+    });
+
+    const date =
+      `${current.getDate()}/${
+        current.getMonth() + 1
+      }/${current.getFullYear()}` +
+      " " +
+      `${currentDateTime}`;
+    // console.log(date);
+    var newDate: any = details.Item.Date + "," + date;
     setShow(false);
     console.log(Question);
     if (Question === undefined && Answer === undefined) {
@@ -44,6 +60,7 @@ export const Edit = ({ details, onEdit }: any) => {
       answer: newAnswer,
       id: Did,
       qa: Question + " " + Answer,
+      DateTime: newDate,
     };
     const requestOptions = {
       method: "put",
