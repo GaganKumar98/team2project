@@ -1,7 +1,6 @@
-// import { Button } from "@material-ui/core";
-import { Input } from "@material-ui/core";
-import React, { SetStateAction, useState } from "react";
-import { Form } from "react-bootstrap";
+
+import React, {  useState } from "react";
+
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Swal from "sweetalert2";
@@ -83,7 +82,7 @@ export const Edit = ({ details, onEdit }: any) => {
           text: "Something went wrong!",
         });
       });
-    // alert("Data Updated");
+    
     navigate("/");
   };
 

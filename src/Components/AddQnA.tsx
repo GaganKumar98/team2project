@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import SweetAlert from "react-bootstrap-sweetalert";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
@@ -11,7 +10,7 @@ const AddQnA = () => {
   const MySwal = withReactContent(Swal);
 
   const handleAdd = () => {
-    if (Question === "" || Answer == "") {
+    if (Question === "" || Answer === "") {
       alert("please Add all the fields");
       return;
     }
