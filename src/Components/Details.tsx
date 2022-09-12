@@ -1,11 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useFetchData } from "./useFetchData";
 import { useFetchDetails } from "./useFetchDetails";
 import { Edit } from "./Edit";
-import { createSemicolonClassElement } from "typescript";
-import { captureRejectionSymbol } from "events";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useNavigate } from "react-router-dom";
@@ -13,8 +10,8 @@ import { useNavigate } from "react-router-dom";
 export const Details = () => {
   const { id } = useParams();
   let navigate = useNavigate();
-  //   const { transformedData, kFetch, setTransformedData } = useFetchData();
-  const { Details, kFetch, setDetails } = useFetchDetails();
+  const [dateLog, setDateLog] = useState<string[]>();
+  const { Details, kFetch } = useFetchDetails();
   useEffect(() => {
     kFetch(`http://localhost:5000/questions/${id}`);
   }, []);
@@ -28,16 +25,10 @@ export const Details = () => {
     const requestOptions = {
       method: "delete",
       headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(null),
     };
     fetch(`http://localhost:5000/questions/${id}`, requestOptions)
       .then((response) => response)
       .then((res) =>
-        // MySwal.fire(
-        //   "Question Answer Delete!",
-        //   "You are being redirected to Home Page.",
-        //   "success"
-        // )
         MySwal.fire({
           position: "center",
           icon: "success",
@@ -53,44 +44,46 @@ export const Details = () => {
           text: "Something went wrong!",
         });
       });
-    // alert("Data Deleted");
+
     navigate("/");
   };
-  console.log("details ", Details);
-  //   console.log("Answer", Details.answer);
+
+  const showEditedInfo = () => {
+    setDateLog(Details.Item.dateLog.split(","));
+  }
   return (
     <>
       {Details && (
         <div className="container-fluid">
-          {/* <h1>{id}</h1> */}
-          <div className="row my-5">
-            <div className="col-md-10">
-              <h1>{Details.Item.question}</h1>
-              <br />
-              <br />
-              <div>{Details.Item.answer}</div>
-            </div>
-            <div className="col-md-2">
-              <div className="row">
-                <div className="col-md-6">
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={handleDelete}
-                  >
-                    Delete
-                  </button>
-                </div>
-                <div className="col-md-6">
-                  <Edit details={Details} onEdit={handleEdit} />
-                </div>
-              </div>
+          <div className="row mt-3 ">
+            <div className="col-lg-9 col-md-9 p-4 " style={{ borderRight: "5px solid black" }}>
+              <h3>Question: {Details.Item.question}   </h3>
+              <h5>Answer: {Details.Item.answer}</h5>
 
-              {/* <button
-                className="btn btn-warning btn-sm mx-2"
-                onClick={handleEdit}  > Edit button> */}
+            </div>
+            <div className="col-lg-3 col-md-3">
+              <div className="container d-flex justify-content-between mb-4">
+                <Edit details={Details} onEdit={handleEdit} />
+                <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
+                <button className="btn btn-info" onClick={() => { showEditedInfo() }}>Edited Info</button>
+              </div>
+              {dateLog &&
+                <div className="container d-flex justify-content-between ">
+                  <ul className="list-group">
+                    {
+                      dateLog.map((val: any, key: any) => {
+                        return (
+                          <li className="list-group-item">{val}</li>
+                          );
+                        })
+                    }
+                  </ul>
+                </div>
+              }
             </div>
           </div>
         </div>
+
       )}
     </>
   );

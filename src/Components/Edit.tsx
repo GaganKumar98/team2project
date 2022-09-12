@@ -89,7 +89,7 @@ export const Edit = ({ details, onEdit }: any) => {
 
   return (
     <>
-      <Button className="btn btn-warning btn-sm mx-2" onClick={handleShow}>
+      <Button className="btn btn-Primary" onClick={handleShow}>
         Edit
       </Button>
 
@@ -135,77 +135,7 @@ export const Edit = ({ details, onEdit }: any) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      {/* <div>
-      <button
-        type="button"
-        className="btn btn-warning   btn-sm"
-        data-toggle="modal"
-        data-target="#EditModal"
-        data-whatever=""
-      >
-        Edit
-      </button>
-      <div
-        className="modal fade"
-        id="EditModal"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                New message
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <form>
-                <div className="form-group">
-                  <label htmlFor="recipient-name" className="col-form-label">
-                    Recipient:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="recipient-name"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="message-text" className="col-form-label">
-                    Message:
-                  </label>
-                  <textarea
-                    className="form-control"
-                    id="message-text"
-                  ></textarea>
-                </div>
-              </form>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" className="btn btn-primary">
-                Send message
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> */}
+      
     </>
   );
 };

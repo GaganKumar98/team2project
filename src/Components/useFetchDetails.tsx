@@ -13,11 +13,8 @@ export const useFetchDetails = () => {
         console.log("error");
       }
       const data = await response.json();
-      //   console.log("use Fetch Details", data);
-      //   console.log(data.Item);
-
       setDetails(data);
-      console.log(Details);
+
     } catch (err) {
       console.log("error", err);
     }
