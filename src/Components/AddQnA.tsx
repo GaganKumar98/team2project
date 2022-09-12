@@ -15,7 +15,22 @@ const AddQnA = () => {
       alert("please Add all the fields");
       return;
     }
-    const data = { question: Question, answer: Answer };
+    const current = new Date();
+    const currentDateTime = current.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      // hour12: false,
+    });
+
+    const date =
+      `${current.getDate()}/${
+        current.getMonth() + 1
+      }/${current.getFullYear()}` +
+      " " +
+      `${currentDateTime}`;
+    console.log(date);
+    const data = { question: Question, answer: Answer, status: 1, Date: date };
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
