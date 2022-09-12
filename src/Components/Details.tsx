@@ -14,7 +14,7 @@ export const Details = () => {
   const { Details, kFetch } = useFetchDetails();
   useEffect(() => {
     kFetch(`http://localhost:5000/questions/${id}`);
-  }, []);
+  }, [id,kFetch]);
 
   const handleEdit = () => {
     return null;

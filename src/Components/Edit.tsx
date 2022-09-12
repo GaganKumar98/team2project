@@ -35,7 +35,7 @@ export const Edit = ({ details, onEdit }: any) => {
       " " +
       `${currentDateTime}`;
     
-    var newDate: any = details.Item.dateLog + "," + date;
+    var newDate: any =  date+ ","+details.Item.dateLog ;
     setShow(false);
     console.log(Question);
     if (Question === undefined && Answer === undefined) {
