@@ -70,6 +70,7 @@ export const Details = () => {
               {dateLog &&
                 <div className="container d-flex justify-content-between ">
                   <ul className="list-group">
+                    <p>Last Edited on</p>
                     {
                       dateLog.map((val: any, key: any) => {
                         return (
