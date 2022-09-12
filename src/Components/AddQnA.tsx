@@ -23,13 +23,22 @@ const AddQnA = () => {
     };
     fetch("http://localhost:5000/Questions", requestOptions)
       .then((response) => response)
-      .then((res) => console.log(res));
+      .then((res) =>
+        MySwal.fire(
+          "Question Answer Added!",
+          "You are being redirected to Home Page.",
+          "success"
+        )
+      )
+      .catch((error) => {
+        MySwal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      });
     // alert("Data Inserted");
-    MySwal.fire(
-      "Question Answer Added!",
-      "You are being redirected to Home Page.",
-      "success"
-    );
+
     navigate("/");
   };
 

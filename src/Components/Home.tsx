@@ -1,3 +1,4 @@
+import { colors } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Pagination } from "../services/Pgination";
@@ -12,9 +13,14 @@ export const Home = ({ transformedData, kFetch }: any) => {
     textAlign: "center",
     paddingBottom: "10px",
   };
-
+  const cardStyle: any = {
+    borderRadius: "10px",
+    // #FFD600
+    backgroundImage: "linear-gradient(to right, #F0E68C , #FBCEB1)",
+    height: "165px",
+  };
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 5;
+  const postsPerPage = 6;
   const paginate = (item: number) => {
     setCurrentPage(item);
     window.scrollTo(0, 0);
@@ -36,16 +42,21 @@ export const Home = ({ transformedData, kFetch }: any) => {
           currentPost.map((val: any, key: any) => {
             return (
               <div className="col-lg-4 mb-4">
-                <div className="card">
-                  {/* <img className="card-img-top" src="" alt=""> */}
-
+                <div style={cardStyle} className="card">
                   <div className="card-body">
                     <h5 className="card-title">{val.question}</h5>
-                    <p className="card-text text-truncate">{val.answer}</p>
-                    <Link to={`/Details/${val.questionId}`}>Read More</Link>
-                    <a href="#" className="btn btn-outline-secondary btn-sm">
-                      <i className="far fa-heart"></i>
-                    </a>
+                    <p
+                      className="card-text text-truncate"
+                      style={{ maxWidth: "700px" }}
+                    >
+                      {val.answer}{" "}
+                    </p>
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      to={`/Details/${val.questionId}`}
+                    >
+                      Read More...
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -108,14 +119,14 @@ export const Home = ({ transformedData, kFetch }: any) => {
           );
         })} */}
 
-      {/* {transformedData && (
+      {transformedData && (
         <Pagination
           first={postsPerPage}
           last={transformedData.length}
           paginate={paginate}
           currentPage={currentPage}
         />
-      )} */}
+      )}
     </div>
   );
 };

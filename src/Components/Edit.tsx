@@ -4,24 +4,44 @@ import React, { SetStateAction, useState } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { useNavigate } from "react-router-dom";
 
 export const Edit = ({ details, onEdit }: any) => {
   const [show, setShow] = useState(false);
   const [Question, setQuestion] = useState<React.SetStateAction<any>>();
   const [Answer, setAnswer] = useState<React.SetStateAction<string>>();
   const Did: any = details.Item.questionId;
+  let navigate = useNavigate();
+  const MySwal = withReactContent(Swal);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   const handleSave = () => {
+    var newAnswer: any = Answer;
+    var newQuestion: any = Question;
     setShow(false);
     console.log(Question);
     if (Question === undefined && Answer === undefined) {
-      console.log("heelo");
-      return;
+      // setQuestion(details.Item.question);
+      // setAnswer(details.Item.answer);
+      newQuestion = details.Item.question;
+      newAnswer = details.Item.answer;
+      // console.log("heelo");
+      // return;
+    }
+    if (Question === undefined) {
+      // setQuestion(details.Item.question);
+      newQuestion = details.Item.question;
+    }
+    if (Answer === undefined) {
+      // setAnswer(details.Item.answer);
+      newAnswer = details.Item.answer;
     }
     const data = {
-      question: Question,
-      answer: Answer,
+      question: newQuestion,
+      answer: newAnswer,
       id: Did,
       qa: Question + " " + Answer,
     };
@@ -32,8 +52,24 @@ export const Edit = ({ details, onEdit }: any) => {
     };
     fetch(`http://localhost:5000/questions/${Did}`, requestOptions)
       .then((response) => response)
-      .then((res) => console.log(res));
-    alert("Data Updated");
+      .then((res) =>
+        MySwal.fire({
+          position: "center",
+          icon: "success",
+          title: '"Question Answer Edit Sucessfully!',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+      )
+      .catch((error) => {
+        MySwal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      });
+    // alert("Data Updated");
+    navigate("/");
   };
 
   return (
