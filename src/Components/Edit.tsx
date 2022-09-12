@@ -26,7 +26,7 @@ export const Edit = ({ details, onEdit }: any) => {
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
-      // hour12: false,
+      
     });
 
     const date =
@@ -35,17 +35,15 @@ export const Edit = ({ details, onEdit }: any) => {
       }/${current.getFullYear()}` +
       " " +
       `${currentDateTime}`;
-    // console.log(date);
-    var newDate: any = details.Item.Date + "," + date;
+    
+    var newDate: any = details.Item.dateLog + "," + date;
     setShow(false);
     console.log(Question);
     if (Question === undefined && Answer === undefined) {
-      // setQuestion(details.Item.question);
-      // setAnswer(details.Item.answer);
+      
       newQuestion = details.Item.question;
       newAnswer = details.Item.answer;
-      // console.log("heelo");
-      // return;
+      
     }
     if (Question === undefined) {
       // setQuestion(details.Item.question);
@@ -60,7 +58,7 @@ export const Edit = ({ details, onEdit }: any) => {
       answer: newAnswer,
       id: Did,
       qa: Question + " " + Answer,
-      DateTime: newDate,
+      dateLog : newDate,
     };
     const requestOptions = {
       method: "put",

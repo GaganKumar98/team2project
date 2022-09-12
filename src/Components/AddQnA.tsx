@@ -20,7 +20,6 @@ const AddQnA = () => {
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
-      // hour12: false,
     });
 
     const date =
@@ -30,7 +29,7 @@ const AddQnA = () => {
       " " +
       `${currentDateTime}`;
     console.log(date);
-    const data = { question: Question, answer: Answer, status: 1, Date: date };
+    const data = { question: Question, answer: Answer, status: 1, dateLog: date };
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -52,7 +51,7 @@ const AddQnA = () => {
           text: "Something went wrong!",
         });
       });
-    // alert("Data Inserted");
+    
 
     navigate("/");
   };
