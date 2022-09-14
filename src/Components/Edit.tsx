@@ -17,8 +17,12 @@ export const Edit = ({ details, onEdit }: any) => {
   const handleShow = () => setShow(true);
 
   const handleSave = () => {
+    // console.log("secondary Data", details.Item.secondary);
     var newAnswer: any = Answer;
     var newQuestion: any = Question;
+    var OldQuestion = details.Item.question;
+    var OldAnswer = details.Item.answer;
+    var SecondayData: any;
     const current = new Date();
     const currentDateTime = current.toLocaleTimeString("en-US", {
       hour: "2-digit",
@@ -48,13 +52,31 @@ export const Edit = ({ details, onEdit }: any) => {
       // setAnswer(details.Item.answer);
       newAnswer = details.Item.answer;
     }
+    if (details.Item.Secondary === undefined) {
+      console.log("secondary data is undefined");
+      SecondayData = date + "         " + OldQuestion + " |/| " + OldAnswer;
+    }
+    console.log("details.Item.secondary", details.Item.Secondary);
+    if (details.Item.Secondary !== undefined) {
+      console.log("secondary data is not undefined");
+      SecondayData =
+        details.Item.Secondary +
+        "," +
+        date +
+        "         " +
+        OldQuestion +
+        " |/| " +
+        OldAnswer;
+    }
     const data = {
       question: newQuestion,
       answer: newAnswer,
       id: Did,
       qa: Question + " " + Answer,
       dateLog: newDate,
+      Secondary: SecondayData,
     };
+    console.log(SecondayData);
     const requestOptions = {
       method: "put",
       headers: { "Content-Type": "application/json" },
@@ -79,7 +101,7 @@ export const Edit = ({ details, onEdit }: any) => {
         });
       });
 
-    navigate("/");
+    navigate(`/Details/${Did}`);
   };
 
   return (
