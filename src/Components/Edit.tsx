@@ -1,5 +1,4 @@
-
-import React, {  useState } from "react";
+import React, { useState } from "react";
 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -25,7 +24,6 @@ export const Edit = ({ details, onEdit }: any) => {
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
-      
     });
 
     const date =
@@ -34,15 +32,13 @@ export const Edit = ({ details, onEdit }: any) => {
       }/${current.getFullYear()}` +
       " " +
       `${currentDateTime}`;
-    
-    var newDate: any =  date+ ","+details.Item.dateLog ;
+
+    var newDate: any = date + "," + details.Item.dateLog;
     setShow(false);
     console.log(Question);
     if (Question === undefined && Answer === undefined) {
-      
       newQuestion = details.Item.question;
       newAnswer = details.Item.answer;
-      
     }
     if (Question === undefined) {
       // setQuestion(details.Item.question);
@@ -57,7 +53,7 @@ export const Edit = ({ details, onEdit }: any) => {
       answer: newAnswer,
       id: Did,
       qa: Question + " " + Answer,
-      dateLog : newDate,
+      dateLog: newDate,
     };
     const requestOptions = {
       method: "put",
@@ -82,13 +78,13 @@ export const Edit = ({ details, onEdit }: any) => {
           text: "Something went wrong!",
         });
       });
-    
+
     navigate("/");
   };
 
   return (
     <>
-      <Button className="btn btn-Primary" onClick={handleShow}>
+      <Button className="btn btn-sm btn-Primary" onClick={handleShow}>
         Edit
       </Button>
 
@@ -134,7 +130,6 @@ export const Edit = ({ details, onEdit }: any) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      
     </>
   );
 };

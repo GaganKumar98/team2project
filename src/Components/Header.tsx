@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export const Header = ({
-  
-  setSearchTerm,
-}: any) => {
+export const Header = ({ setSearchTerm }: any) => {
   let navigate = useNavigate();
   const [temp, setTemp] = useState("");
 
@@ -22,7 +19,9 @@ export const Header = ({
     <>
       <div
         className="container-fluid d-flex  align-items-center justify-content-between header"
-        style={{ backgroundColor: " rgb(236, 225, 178)" }}
+        style={{
+          backgroundImage: "linear-gradient(to right, #F0E68C , #FBCEB1)",
+        }}
       >
         <h4>
           {" "}
