@@ -6,6 +6,7 @@ const Results = ({ searchTerm }: any) => {
 
   useEffect(() => {
     kFetch(`http://localhost:5000/questionsans/${searchTerm}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [results]);
 
   return (

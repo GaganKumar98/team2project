@@ -5,6 +5,7 @@ import { Pagination } from "../services/Pgination";
 export const Home = ({ transformedData, kFetch }: any) => {
   useEffect(() => {
     kFetch("http://localhost:5000/questions");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const myStyle: any = {
