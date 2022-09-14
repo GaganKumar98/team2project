@@ -2,10 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export const Header = ({
-  transformedData,
-  kFetch,
-  setTransformedData,
-  searchTerm,
+  
   setSearchTerm,
 }: any) => {
   let navigate = useNavigate();
@@ -13,7 +10,7 @@ export const Header = ({
 
   const searchHandle = (e: any) => {
     e.preventDefault();
-    if (temp == "") {
+    if (temp === "") {
       alert("Please enter the fields ");
       return;
     }

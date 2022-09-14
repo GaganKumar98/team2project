@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useFetchDetails } from "./useFetchDetails";
+import { useFetchDetails } from "../FetchingApi/useFetchDetails";
 import { Edit } from "./Edit";
 
 import Swal from "sweetalert2";

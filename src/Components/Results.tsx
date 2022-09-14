@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { useFetchResults } from "./useFetchResults";
+import  { useEffect } from "react";
+import { useFetchResults } from "../FetchingApi/useFetchResults";
 
 const Results = ({ searchTerm }: any) => {
-  let { results, kFetch, setResults } = useFetchResults();
+  let { results, kFetch } = useFetchResults();
 
   useEffect(() => {
     kFetch(`http://localhost:5000/questionsans/${searchTerm}`);

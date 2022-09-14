@@ -6,9 +6,8 @@ import { Error } from "./Components/Error";
 import Footer from "./Components/Footer";
 import { Header } from "./Components/Header";
 import Results from "./Components/Results";
-import Test from "./Components/Test";
 import { Home } from "./Components/Home";
-import { useFetchData } from "./Components/useFetchData";
+import { useFetchData } from "./FetchingApi/useFetchData";
 import { Details } from "./Components/Details";
 
 function App() {
