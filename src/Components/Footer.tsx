@@ -109,7 +109,8 @@ const Footer = () => {
             >
               Nagarro
             </a>
-            &nbsp;© 2022. All rights reserved.
+            &nbsp;<span style={{ color: "red" }}>©</span> 2022. All rights
+            reserved.
           </p>
         </footer>
       </div>

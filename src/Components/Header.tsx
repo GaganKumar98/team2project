@@ -25,7 +25,14 @@ export const Header = ({ setSearchTerm }: any) => {
       >
         <h4>
           {" "}
-          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+          <Link
+            to="/"
+            style={{
+              textDecoration: "none",
+              color: "black",
+              marginLeft: "10px",
+            }}
+          >
             Team2{" "}
           </Link>
         </h4>
@@ -49,7 +56,7 @@ export const Header = ({ setSearchTerm }: any) => {
           </form>
           <button
             className="btn btnHeader"
-            style={{ backgroundColor: "rgb(127, 189, 255)", margin: "10px" }}
+            style={{ backgroundColor: "rgb( 253, 126, 20)", margin: "10px" }}
           >
             <Link to="/" style={{ textDecoration: "none", color: "black" }}>
               Home
@@ -57,7 +64,7 @@ export const Header = ({ setSearchTerm }: any) => {
           </button>
           <button
             className="btn btnHeader"
-            style={{ backgroundColor: "rgb(127, 189, 255)", margin: "10px" }}
+            style={{ backgroundColor: "rgb( 253, 126, 20)", margin: "10px" }}
           >
             <Link to="/add" style={{ textDecoration: "none", color: "black" }}>
               Add New
