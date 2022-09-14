@@ -40,7 +40,7 @@ export const Home = ({ transformedData, kFetch }: any) => {
         {transformedData &&
           currentPost.map((val: any, key: any) => {
             return (
-              <div className="col-lg-4 mb-4">
+              <div className="col-lg-4 mb-4" key={val.questionId}>
                 <div style={cardStyle} className="card">
                   <div className="card-body">
                     <h5 className="card-title">{val.question}</h5>

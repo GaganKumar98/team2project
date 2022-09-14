@@ -1,5 +1,7 @@
-import  { useEffect } from "react";
+import  { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useFetchResults } from "../FetchingApi/useFetchResults";
+import { Pagination } from "../services/Pgination";
 
 const Results = ({ searchTerm }: any) => {
   let { results, kFetch } = useFetchResults();
@@ -7,55 +9,73 @@ const Results = ({ searchTerm }: any) => {
   useEffect(() => {
     kFetch(`http://localhost:5000/questionsans/${searchTerm}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [results]);
+  }, []);
+
+  const myStyle: any = {
+    margin: "10px",
+    textAlign: "center",
+    paddingBottom: "10px",
+  };
+  const cardStyle: any = {
+    borderRadius: "10px",
+    backgroundImage: "linear-gradient(to right, #F0E68C , #FBCEB1)",
+    height: "165px",
+  };
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 6;
+  const paginate = (item: number) => {
+    setCurrentPage(item);
+    window.scrollTo(0, 0);
+  };
+  const lastIndex: number = currentPage * postsPerPage;
+  const firstIndex: number = lastIndex - postsPerPage;
+  const currentPost =
+    results && results.slice(firstIndex, lastIndex);
 
   return (
-    <>
-      <div className="container mt-5">
-        <div>
-          <h3 style={{ marginBottom: "20px" }}>Results</h3>
-        </div>
-
+    <div className="container">
+      <div>
+        <h1 style={myStyle}>
+          Question <span style={{ color: "red" }}>&</span> Answer
+        </h1>
+      </div>
+      <div className="row">
         {results &&
-          results.map((val: any, key: any) => {
+          currentPost.map((val: any, key: any) => {
             return (
-              <div
-                className="accordion"
-                id="accordionExample"
-                key={key}
-                style={{ marginBottom: "10px" }}
-              >
-                <div className="accordion-item">
-                  <h2
-                    className="accordion-header"
-                    id={`heading` + val.questionId.S}
-                  >
-                    <button
-                      className="accordion-button"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target={`#collapse` + val.questionId.S}
-                      aria-expanded="true"
-                      aria-controls={`collapse` + val.questionId.S}
+              <div className="col-lg-4 mb-4" key={val.questionId.S}>
+                <div style={cardStyle} className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">{val.question.S}</h5>
+                    <p
+                      className="card-text text-truncate"
+                      style={{ maxWidth: "700px" }}
                     >
-                      Question: {val.question.S}
-                    </button>
-                  </h2>
-                  <div
-                    id={`collapse` + val.questionId.S}
-                    className="accordion-collapse collapse"
-                    aria-labelledby={`heading` + val.questionId.S}
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div className="accordion-body">Answer: {val.answer.S}</div>
+                      {val.answer.S}{" "}
+                    </p>
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      to={`/Details/${val.questionId.S}`}
+                    >
+                      Read More...
+                    </Link>
                   </div>
                 </div>
               </div>
             );
           })}
       </div>
-    </>
+      {results && (
+        <Pagination
+          first={postsPerPage}
+          last={results.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
+      )}
+    </div>
   );
 };
+
 
 export default Results;
