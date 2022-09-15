@@ -12,6 +12,7 @@ export const Details = () => {
   let navigate = useNavigate();
   const [dateLog, setDateLog] = useState<string[]>();
   const [secondaryData, setSecondary] = useState<String[]>();
+  var num: number = 1;
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -110,42 +111,45 @@ export const Details = () => {
                     {secondaryData.map((val: any, key: any) => {
                       // return <li className="list-group-item">{val}</li>;
                       return (
-                        <div className="accordion" id="accordionExample">
-                          <div className="accordion-item">
-                            <h2 className="accordion-header" id="headingOne">
-                              <button
-                                className="accordion-button"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne"
-                                aria-expanded="true"
-                                aria-controls="collapseOne"
+                        <>
+                          <div className="accordion" id="accordionExample">
+                            <div className="accordion-item">
+                              <h2 className="accordion-header" id="headingOne">
+                                <button
+                                  className="accordion-button"
+                                  type="button"
+                                  data-bs-toggle="collapse"
+                                  data-bs-target="#collapseOne"
+                                  aria-expanded="true"
+                                  aria-controls="collapseOne"
+                                >
+                                  {val.substring(0, 22)}
+                                </button>
+                              </h2>
+                              <div
+                                id="collapseOne"
+                                className="accordion-collapse collapse hide"
+                                aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample"
                               >
-                                {val.substring(0, 22)}
-                              </button>
-                            </h2>
-                            <div
-                              id="collapseOne"
-                              className="accordion-collapse collapse hide"
-                              aria-labelledby="headingOne"
-                              data-bs-parent="#accordionExample"
-                            >
-                              <div className="accordion-body">
-                                {val
-                                  .replace(val.substring(0, 22), "")
-                                  .split("|/|")
-                                  .map((newData: any, key: any) => {
-                                    return (
-                                      <>
-                                        {newData}
-                                        <br />
-                                      </>
-                                    );
-                                  })}
+                                <div className="accordion-body">
+                                  {val
+                                    .replace(val.substring(0, 22), "")
+                                    .split("|/|")
+                                    .map((newData: any, key: any) => {
+                                      return (
+                                        <>
+                                          {newData}
+                                          <br />
+                                        </>
+                                      );
+                                    })}
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                          {/* {(num = num + 1)} */}
+                        </>
                       );
                     })}
                   </ul>

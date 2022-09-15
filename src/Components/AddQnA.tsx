@@ -28,7 +28,12 @@ const AddQnA = () => {
       " " +
       `${currentDateTime}`;
     console.log(date);
-    const data = { question: Question, answer: Answer, status: 1, dateLog: date };
+    const data = {
+      question: Question,
+      answer: Answer,
+      status: 1,
+      dateLog: date,
+    };
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -37,20 +42,25 @@ const AddQnA = () => {
     fetch("http://localhost:5000/Questions", requestOptions)
       .then((response) => response)
       .then((res) =>
-        MySwal.fire(
-          "Question Answer Added!",
-          "You are being redirected to Home Page.",
-          "success"
-        )
+        MySwal.fire({
+          position: "center",
+          icon: "success",
+          title: "Question Answer Added!",
+          text: "You're being rediected to homePage",
+          showConfirmButton: false,
+          timer: 1500,
+        })
       )
       .catch((error) => {
         MySwal.fire({
+          position: "center",
           icon: "error",
-          title: "Oops...",
+          title: "Oops..  ",
           text: "Something went wrong!",
+          showConfirmButton: false,
+          timer: 1500,
         });
       });
-    
 
     navigate("/");
   };
