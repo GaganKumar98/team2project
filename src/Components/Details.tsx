@@ -2,17 +2,23 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useFetchDetails } from "../FetchingApi/useFetchDetails";
 import { Edit } from "./Edit";
-
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useNavigate } from "react-router-dom";
 
+interface secData {
+  question: string;
+  answer: string;
+  modifyInfo: string;
+}
+
 export const Details = () => {
   const { id } = useParams();
   let navigate = useNavigate();
-  const [dateLog, setDateLog] = useState<string[]>();
-  const [secondaryData, setSecondary] = useState<String[]>();
+  const [secondaryData, setSecondary] = useState<secData[]>([]);
+
   var num: number = 1;
+  const [incnum, setIncnum] = useState<Number>(1)
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -64,16 +70,22 @@ export const Details = () => {
 
   const showEditedInfo = () => {
     // setDateLog(Details.Item.dateLog.split(","));
-    if (Details.Item.Secondary === undefined) {
+    if (Details.Item.secondary.length === 0) {
       Toast.fire({
         icon: "error",
         title: "No Edit History found",
       });
     } else {
-      setSecondary(Details.Item.Secondary.split(","));
+      console.log(Details.Item.secondary)
+      setSecondary(result => [...result, ...Details.Item.secondary])
+      //setValue(Details.Item.secondary)
+      console.log(secondaryData)
+
     }
-    // console.log(secondaryData);
+
   };
+
+
   return (
     <>
       {Details && (
@@ -111,45 +123,40 @@ export const Details = () => {
                     {secondaryData.map((val: any, key: any) => {
                       // return <li className="list-group-item">{val}</li>;
                       return (
-                        <>
-                          <div className="accordion" id="accordionExample">
+                        
+                          <div
+                            className="accordion"
+                            id="accordionExample"
+                            key={val.editId}
+                            style={{ marginBottom: "10px" }}
+                          >
                             <div className="accordion-item">
-                              <h2 className="accordion-header" id="headingOne">
+                              <h2
+                                className="accordion-header"
+                                id={`heading` + val.editId}
+                              >
                                 <button
                                   className="accordion-button"
                                   type="button"
                                   data-bs-toggle="collapse"
-                                  data-bs-target="#collapseOne"
+                                  data-bs-target={`#collapse` + val.editId}
                                   aria-expanded="true"
-                                  aria-controls="collapseOne"
+                                  aria-controls={`collapse` + val.editId}
                                 >
-                                  {val.substring(0, 22)}
+                                   {val.modifyInfo}
                                 </button>
                               </h2>
                               <div
-                                id="collapseOne"
-                                className="accordion-collapse collapse hide"
-                                aria-labelledby="headingOne"
+                                id={`collapse` + val.editId}
+                                className="accordion-collapse collapse"
+                                aria-labelledby={`heading` + val.editId}
                                 data-bs-parent="#accordionExample"
                               >
-                                <div className="accordion-body">
-                                  {val
-                                    .replace(val.substring(0, 22), "")
-                                    .split("|/|")
-                                    .map((newData: any, key: any) => {
-                                      return (
-                                        <>
-                                          {newData}
-                                          <br />
-                                        </>
-                                      );
-                                    })}
-                                </div>
+                                <div className="accordion-body">Ques: {val.question}<br/>Ans: {val.answer}</div>
                               </div>
                             </div>
                           </div>
-                          {/* {(num = num + 1)} */}
-                        </>
+                        
                       );
                     })}
                   </ul>
