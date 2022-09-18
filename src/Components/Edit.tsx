@@ -61,7 +61,7 @@ export const Edit = ({ details, onEdit }: any) => {
       console.log("secondary data is not undefined");
       SecondayData =
         details.Item.Secondary +
-        "," +
+        "||||" +
         date +
         "         " +
         OldQuestion +

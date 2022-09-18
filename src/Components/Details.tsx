@@ -70,9 +70,9 @@ export const Details = () => {
         title: "No Edit History found",
       });
     } else {
-      setSecondary(Details.Item.Secondary.split(","));
+      setSecondary(Details.Item.Secondary.split("||||"));
     }
-    // console.log(secondaryData);
+    console.log(Details.Item.Secondary);
   };
   return (
     <>
