@@ -92,7 +92,8 @@ export const Edit = ({ details, onEdit }: any) => {
         });
       });
 
-    navigate(`/`);
+    navigate(`/Details/${Did}`);
+    window.location.reload();
   };
 
   return (
