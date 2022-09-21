@@ -15,7 +15,8 @@ interface secData {
 export const Details = () => {
   const { id } = useParams();
   let navigate = useNavigate();
-  const [secondaryData, setSecondary] = useState<secData[]>([]);
+  // const [secondaryData, setSecondary] = useState<secData[]>([]);
+  let [secondaryData, setSecondary] = useState<any>();
 
   
   const Toast = Swal.mixin({
@@ -68,7 +69,7 @@ export const Details = () => {
     navigate("/");
   };
 
-  const showEditedInfo = () => {
+  const showEditedInfo = async () => {
     // setDateLog(Details.Item.dateLog.split(","));
     if (Details.Item.secondary.length === 0) {
       Toast.fire({
@@ -76,10 +77,8 @@ export const Details = () => {
         title: "No Edit History found",
       });
     } else {
-      console.log(Details.Item.secondary);
-      setSecondary((result) => [...result, ...Details.Item.secondary]);
-      //setValue(Details.Item.secondary)
-      console.log(secondaryData);
+      setSecondary(Details.Item.secondary);
+      // console.log("secondary Data", secondaryData);
     }
   };
 
