@@ -10,7 +10,7 @@ const AddQnA = () => {
   const MySwal = withReactContent(Swal);
 
   const [userInfo, setuserInfo] = useState({
-    image: [],
+    image: "",
     filepreview: "",
   });
 
@@ -18,7 +18,7 @@ const AddQnA = () => {
     if (event.target.files[0] === undefined) {
       setuserInfo({
         ...userInfo,
-        image: [],
+        image: "",
         filepreview: "",
       });
     } else {
@@ -49,13 +49,17 @@ const AddQnA = () => {
       " " +
       `${currentDateTime}`;
 
+      const Imagedata = new FormData();
+
+      Imagedata.append("avatar", userInfo.image);
+
     const data = {
       question: Question,
       answer: Answer,
       status: 1,
       dateLog: date,
       secondary: [],
-      imageFile: userInfo.image,
+      imageFile: Imagedata,
     };
 
     console.log(data);
