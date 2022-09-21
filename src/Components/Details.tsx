@@ -17,8 +17,7 @@ export const Details = () => {
   let navigate = useNavigate();
   const [secondaryData, setSecondary] = useState<secData[]>([]);
 
-  var num: number = 1;
-  const [incnum, setIncnum] = useState<Number>(1);
+  
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -34,6 +33,7 @@ export const Details = () => {
   const { Details, kFetch } = useFetchDetails();
   useEffect(() => {
     kFetch(`http://localhost:5000/questions/${id}`);
+    
   }, [id, kFetch]);
 
   const handleEdit = () => {
@@ -83,6 +83,7 @@ export const Details = () => {
     }
   };
 
+  console.log(Details)
   return (
     <>
       {Details && (
