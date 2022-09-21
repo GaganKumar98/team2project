@@ -54,26 +54,24 @@ export const Header = ({ setSearchTerm }: any) => {
               />
             </button>
           </form>
-         
-            <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+
+          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
             <button
-            className="btn btnHeader"
-            style={{ backgroundColor: "rgb( 255, 153, 0)", margin: "10px" }}
-          >
+              className="btn btnHeader"
+              style={{ backgroundColor: "rgb( 255, 153, 0)", margin: "10px" }}
+            >
               Home
-              </button>
-            </Link>
-          
-          
-            <Link to="/add" style={{ textDecoration: "none", color: "black" }}>
+            </button>
+          </Link>
+
+          <Link to="/add" style={{ textDecoration: "none", color: "black" }}>
             <button
-            className="btn btnHeader"
-            style={{ backgroundColor: "rgb( 255, 153, 0)", margin: "10px" }}
-          >
+              className="btn btnHeader"
+              style={{ backgroundColor: "rgb( 255, 153, 0)", margin: "10px" }}
+            >
               Add New
-              </button>
-            </Link>
-          
+            </button>
+          </Link>
         </div>
       </div>
     </>
