@@ -62,14 +62,16 @@ export const Header = ({ setSearchTerm }: any) => {
               Home
             </Link>
           </button>
-          <button
+          
+            <Link to="/add" style={{ textDecoration: "none", color: "black" }}>
+            <button
             className="btn btnHeader"
             style={{ backgroundColor: "rgb( 255, 153, 0)", margin: "10px" }}
           >
-            <Link to="/add" style={{ textDecoration: "none", color: "black" }}>
               Add New
+              </button>
             </Link>
-          </button>
+          
         </div>
       </div>
     </>
