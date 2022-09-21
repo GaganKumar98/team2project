@@ -9,6 +9,27 @@ const AddQnA = () => {
   let navigate = useNavigate();
   const MySwal = withReactContent(Swal);
 
+  const [userInfo, setuserInfo] = useState({
+    image: [],
+    filepreview: "",
+  });
+
+  const handleInputChangeImage = (event: any) => {
+    if (event.target.files[0] === undefined) {
+      setuserInfo({
+        ...userInfo,
+        image: [],
+        filepreview: "",
+      });
+    } else {
+      setuserInfo({
+        ...userInfo,
+        image: event.target.files[0],
+        filepreview: URL.createObjectURL(event.target.files[0]),
+      });
+    }
+  };
+
   const handleAdd = () => {
     if (Question === "" || Answer === "") {
       alert("please Add all the fields");
@@ -27,15 +48,18 @@ const AddQnA = () => {
       }/${current.getFullYear()}` +
       " " +
       `${currentDateTime}`;
-    
+
     const data = {
       question: Question,
       answer: Answer,
       status: 1,
       dateLog: date,
-      secondary:[],
+      secondary: [],
+      imageFile: userInfo.image,
     };
+
     console.log(data);
+
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -78,7 +102,7 @@ const AddQnA = () => {
             {/* <form> */}
             <div className="mb-3">
               <label htmlFor="question" className="form-label">
-                Question
+                Question<span style={{ color: "red" }}>*</span>
               </label>
               <input
                 type="text"
@@ -92,7 +116,7 @@ const AddQnA = () => {
 
             <div className="my-3">
               <label htmlFor="answer" className="form-label">
-                Answer
+                Answer<span style={{ color: "red" }}>*</span>
               </label>
               <textarea
                 rows={3}
@@ -101,6 +125,17 @@ const AddQnA = () => {
                 onChange={(e) => {
                   setAnswer(e.target.value);
                 }}
+              />
+            </div>
+            <div className="my-3">
+              <label htmlFor="answer" className="form-label">
+                Select Image
+              </label>
+              <input
+                type="file"
+                className="form-control"
+                name="upload_file"
+                onChange={handleInputChangeImage}
               />
             </div>
 
@@ -112,6 +147,18 @@ const AddQnA = () => {
               Add QnA
             </button>
             {/* </form> */}
+          </div>
+          <div className="col-lg-6 text-start ">
+            {userInfo.filepreview !== "" ? (
+              <img
+                style={{ marginLeft: "20px" }}
+                className="previewimg"
+                src={userInfo.filepreview}
+                alt="UploadImage"
+                width="350"
+                height="350"
+              />
+            ) : null}
           </div>
         </div>
       </div>
