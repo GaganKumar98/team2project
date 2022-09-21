@@ -76,7 +76,7 @@ export const Details = () => {
         title: "No Edit History found",
       });
     } else {
-      // console.log(Details.Item.secondary)
+      console.log(Details.Item.secondary);
       setSecondary((result) => [...result, ...Details.Item.secondary]);
       //setValue(Details.Item.secondary)
       console.log(secondaryData);
