@@ -27,13 +27,15 @@ const AddQnA = () => {
       }/${current.getFullYear()}` +
       " " +
       `${currentDateTime}`;
-    console.log(date);
+    
     const data = {
       question: Question,
       answer: Answer,
       status: 1,
       dateLog: date,
+      secondary:[],
     };
+    console.log(data);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },

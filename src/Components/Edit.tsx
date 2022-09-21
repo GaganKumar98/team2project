@@ -11,35 +11,42 @@ export const Edit = ({ details, onEdit }: any) => {
   const [Question, setQuestion] = useState<React.SetStateAction<any>>();
   const [Answer, setAnswer] = useState<React.SetStateAction<string>>();
   const Did: any = details.Item.questionId;
+  var SecondayData: any;
   let navigate = useNavigate();
   const MySwal = withReactContent(Swal);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleSave = () => {
-    // console.log("secondary Data", details.Item.secondary);
     var newAnswer: any = Answer;
     var newQuestion: any = Question;
-    var OldQuestion = details.Item.question;
-    var OldAnswer = details.Item.answer;
-    var SecondayData: any;
+    var editId: any = details.Item.secondary.length + 1;
+
     const current = new Date();
     const currentDateTime = current.toLocaleTimeString("en-US", {
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
     });
-
     const date =
       `${current.getDate()}/${
         current.getMonth() + 1
       }/${current.getFullYear()}` +
       " " +
       `${currentDateTime}`;
-
     var newDate: any = date + "," + details.Item.dateLog;
     setShow(false);
-    console.log(Question);
+
+    var secondary = [
+      {
+        question: details.Item.question,
+        answer: details.Item.answer,
+        modifyInfo: date,
+        editId: editId,
+      },
+      ...details.Item.secondary,
+    ];
+
     if (Question === undefined && Answer === undefined) {
       newQuestion = details.Item.question;
       newAnswer = details.Item.answer;
@@ -52,31 +59,15 @@ export const Edit = ({ details, onEdit }: any) => {
       // setAnswer(details.Item.answer);
       newAnswer = details.Item.answer;
     }
-    if (details.Item.Secondary === undefined) {
-      console.log("secondary data is undefined");
-      SecondayData = date + "         " + OldQuestion + " |/| " + OldAnswer;
-    }
-    console.log("details.Item.secondary", details.Item.Secondary);
-    if (details.Item.Secondary !== undefined) {
-      console.log("secondary data is not undefined");
-      SecondayData =
-        details.Item.Secondary +
-        "||||" +
-        date +
-        "         " +
-        OldQuestion +
-        " |/| " +
-        OldAnswer;
-    }
     const data = {
       question: newQuestion,
       answer: newAnswer,
       id: Did,
       qa: Question + " " + Answer,
       dateLog: newDate,
-      Secondary: SecondayData,
+      secondary: secondary,
     };
-    console.log(SecondayData);
+
     const requestOptions = {
       method: "put",
       headers: { "Content-Type": "application/json" },
@@ -101,7 +92,7 @@ export const Edit = ({ details, onEdit }: any) => {
         });
       });
 
-    navigate(`/Details/${Did}`);
+    navigate(`/`);
   };
 
   return (
