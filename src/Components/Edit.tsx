@@ -93,7 +93,7 @@ export const Edit = ({ details, onEdit }: any) => {
       });
 
     navigate(`/Details/${Did}`);
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (

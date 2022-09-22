@@ -1,8 +1,19 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 import { Pagination } from "../services/Pgination";
 
 export const Home = ({ transformedData, kFetch }: any) => {
+  const { setAuth }: any = useAuth();
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    // if used in more components, this should be in context
+    // axios to /logout endpoint
+    setAuth({});
+    navigate("/login");
+  };
+
   useEffect(() => {
     kFetch("http://localhost:5000/questions");
     // eslint-disable-next-line react-hooks/exhaustive-deps

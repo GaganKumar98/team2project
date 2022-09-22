@@ -49,9 +49,10 @@ const AddQnA = () => {
       " " +
       `${currentDateTime}`;
 
-      const Imagedata = new FormData();
-
-      Imagedata.append("avatar", userInfo.image);
+    const Imagedata = new FormData();
+    Imagedata.append("avatar", userInfo.image);
+    console.log(Imagedata.getAll);
+    console.log(userInfo.image);
 
     const data = {
       question: Question,
@@ -59,6 +60,7 @@ const AddQnA = () => {
       status: 1,
       dateLog: date,
       secondary: [],
+      // imageFile: userInfo.image,
       imageFile: Imagedata,
     };
 

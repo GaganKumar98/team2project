@@ -5,6 +5,7 @@ import { Edit } from "./Edit";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 interface secData {
   question: string;
@@ -17,7 +18,6 @@ export const Details = () => {
   let navigate = useNavigate();
   const [secondaryData, setSecondary] = useState<secData[]>([]);
 
-  
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -33,7 +33,6 @@ export const Details = () => {
   const { Details, kFetch } = useFetchDetails();
   useEffect(() => {
     kFetch(`http://localhost:5000/questions/${id}`);
-    
   }, [id, kFetch]);
 
   const handleEdit = () => {
@@ -85,88 +84,113 @@ export const Details = () => {
     }
   };
 
-  return (
-    <>
-      {Details && (
-        <div className="container-fluid">
-          <div className="row mt-3 ">
-            <div
-              className="col-lg-8 col-md-8 p-4 "
-              style={{ borderRight: "5px solid black" }}
-            >
-              <h3>Question: {Details.Item.question} </h3>
-              <h5>Answer: {Details.Item.answer}</h5>
-            </div>
-            <div className="col-lg-4 col-md-4">
-              <div className="container d-flex justify-content-between mb-4">
-                <Edit details={Details} onEdit={handleEdit} />
-                <button
-                  className="btn btn-sm btn-danger"
-                  onClick={handleDelete}
-                >
-                  Delete
-                </button>
-                <button
-                  className="btn btn-sm btn-info"
-                  onClick={() => {
-                    showEditedInfo();
-                  }}
-                >
-                  Edited Info
-                </button>
+  console.log(Details);
+
+  const { auth, setAuth }: any = useAuth();
+
+  if (auth.role === "User")
+    return (
+      <>
+        {Details && (
+          <div className="container-fluid">
+            <div className="row mt-3 ">
+              <div className="col-lg-8 col-md-8 p-4 ">
+                <h3>Question: {Details.Item.question} </h3>
+                <h5>Answer: {Details.Item.answer}</h5>
               </div>
-              {secondaryData && (
-                <div className="container d-flex justify-content-between ">
-                  <ul className="list-group">
-                    <p>Last Edited on</p>
-                    {secondaryData.map((val: any, key: any) => {
-                      // return <li className="list-group-item">{val}</li>;
-                      return (
-                        <div
-                          className="accordion"
-                          id="accordionExample"
-                          key={val.editId}
-                          style={{ marginBottom: "10px" }}
-                        >
-                          <div className="accordion-item">
-                            <h2
-                              className="accordion-header"
-                              id={`heading` + val.editId}
-                            >
-                              <button
-                                className="accordion-button"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target={`#collapse` + val.editId}
-                                aria-expanded="true"
-                                aria-controls={`collapse` + val.editId}
+
+              {/* Edited Info and Buttons Panel does not show on User*/}
+            </div>
+          </div>
+        )}
+      </>
+    );
+  else
+    return (
+      <>
+        {Details && (
+          <div className="container-fluid">
+            <div className="row mt-3 ">
+              <div
+                className="col-lg-8 col-md-8 p-4 "
+                style={{ borderRight: "5px solid black" }}
+              >
+                <h3>Question: {Details.Item.question} </h3>
+                <h5>Answer: {Details.Item.answer}</h5>
+              </div>
+
+              {/* Edited Info and Buttons Panel */}
+
+              <div className="col-lg-4 col-md-4">
+                <div className="container d-flex justify-content-between mb-4">
+                  <Edit details={Details} onEdit={handleEdit} />
+                  <button
+                    className="btn btn-sm btn-danger"
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className="btn btn-sm btn-info"
+                    onClick={() => {
+                      showEditedInfo();
+                    }}
+                  >
+                    Edited Info
+                  </button>
+                </div>
+                {secondaryData && (
+                  <div className="container d-flex justify-content-between ">
+                    <ul className="list-group">
+                      <p>Last Edited on</p>
+                      {secondaryData.map((val: any, key: any) => {
+                        // return <li className="list-group-item">{val}</li>;
+                        return (
+                          <div
+                            className="accordion"
+                            id="accordionExample"
+                            key={val.editId}
+                            style={{ marginBottom: "10px" }}
+                          >
+                            <div className="accordion-item">
+                              <h2
+                                className="accordion-header"
+                                id={`heading` + val.editId}
                               >
-                                {val.modifyInfo}
-                              </button>
-                            </h2>
-                            <div
-                              id={`collapse` + val.editId}
-                              className="accordion-collapse collapse"
-                              aria-labelledby={`heading` + val.editId}
-                              data-bs-parent="#accordionExample"
-                            >
-                              <div className="accordion-body">
-                                Ques: {val.question}
-                                <br />
-                                Ans: {val.answer}
+                                <button
+                                  className="accordion-button"
+                                  type="button"
+                                  data-bs-toggle="collapse"
+                                  data-bs-target={`#collapse` + val.editId}
+                                  aria-expanded="true"
+                                  aria-controls={`collapse` + val.editId}
+                                >
+                                  {val.modifyInfo}
+                                </button>
+                              </h2>
+                              <div
+                                id={`collapse` + val.editId}
+                                className="accordion-collapse collapse"
+                                aria-labelledby={`heading` + val.editId}
+                                data-bs-parent="#accordionExample"
+                              >
+                                <div className="accordion-body">
+                                  Ques: {val.question}
+                                  <br />
+                                  Ans: {val.answer}
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      );
-                    })}
-                  </ul>
-                </div>
-              )}
+                        );
+                      })}
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </>
-  );
+        )}
+      </>
+    );
 };

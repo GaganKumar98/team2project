@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useFetchMaster } from "../FetchingApi/useFetchMaster";
 import { UserEdit } from "./UserEdit";
 
 export const Users = () => {
+
+  let { kFetch, masterData } = useFetchMaster();
+  useEffect(() => {
+    kFetch("http://localhost:5000/userinfo");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
   return (
     <>
       <div className="container-fluid">
@@ -17,40 +26,29 @@ export const Users = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Admin@gmail.com</td>
-              <td>123456</td>
-              <td>Admin</td>
-              <td>
-                <button
-                  className="btn btn-sm btn-danger"
-                  //   onClick={handleDelete}
-                >
-                  Delete
-                </button>
-                &nbsp;
-                <UserEdit />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Larry</td>
-              <td>User@gmail.com</td>
-              <td>123456</td>
-              <td>User</td>
-              <td>
-                <button
-                  className="btn btn-sm btn-danger"
-                  //   onClick={handleDelete}
-                >
-                  Delete
-                </button>
-                &nbsp;
-                <UserEdit />
-              </td>
-            </tr>
+
+            {masterData && masterData.map((data: any,key:number) => {
+              return (
+                <tr>
+                  <th scope="row">{key+1}</th>
+                  <td>{data.fullName}</td>
+                  <td>{data.id}</td>
+                  <td>{data.password}</td>
+                  <td>{data.rolePosition}</td>
+                  <td>
+                    <button
+                      className="btn btn-sm btn-danger"
+                    
+                    >
+                      Delete
+                    </button>
+                    &nbsp;
+                    <UserEdit id={data.id} name={data.fullName} rolePosition={data.rolePosition} />
+                  </td>
+                </tr>
+              )
+            })}
+
           </tbody>
         </table>
       </div>

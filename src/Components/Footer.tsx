@@ -18,10 +18,7 @@ const Footer = () => {
                   <h5 className="text-uppercase">FOOTER CONTENT</h5>
 
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Molestiae modi cum ipsam ad, illo possimus laborum ut
-                    reiciendis obcaecati. Ducimus, quas. Corrupti, pariatur
-                    eaque? Reiciendis assumenda iusto sapiente inventore animi?
+                    Lorem ipsum dolor 
                   </p>
                 </div>
 

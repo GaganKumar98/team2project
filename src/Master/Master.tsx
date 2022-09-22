@@ -1,7 +1,12 @@
 import React from "react";
+import useAuth from "../hooks/useAuth";
 import { Users } from "./Users";
 
 export const Master = () => {
+
+  const {auth}:any = useAuth();
+  
+
   return (
     <>
       <div className="container-fluid mt-2">
@@ -14,9 +19,9 @@ export const Master = () => {
                   src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                   alt="avatar"
                   className="rounded-circle img-fluid"
-                  style={{ width: "90px;" }}
+                  style={{ width: "90px" }}
                 />
-                <h5 className="my-3">Anurag chhetri</h5>
+                <h5 className="my-3">{auth.name}</h5>
                 <p className="text-muted mb-1">
                   Full Stack Developer/Master User
                 </p>
