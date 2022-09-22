@@ -14,21 +14,33 @@ const AddQnA = () => {
     filepreview: "",
   });
 
-  const handleInputChangeImage = (event: any) => {
-    if (event.target.files[0] === undefined) {
-      setuserInfo({
-        ...userInfo,
-        image: "",
-        filepreview: "",
-      });
-    } else {
-      setuserInfo({
-        ...userInfo,
-        image: event.target.files[0],
-        filepreview: URL.createObjectURL(event.target.files[0]),
-      });
+  const [image, setImage] = useState({ preview: '', data: '' })
+
+
+  // const handleInputChangeImage = (event: any) => {
+  //   if (event.target.files[0] === undefined) {
+  //     setuserInfo({
+  //       ...userInfo,
+  //       image: "",
+  //       filepreview: "",
+  //     });
+  //   } else {
+  //     setuserInfo({
+  //       ...userInfo,
+  //       image: event.target.files[0],
+  //       filepreview: URL.createObjectURL(event.target.files[0]),
+  //     });
+  //   }
+  // };
+  
+
+  const handleFileChange = (e:any) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
     }
-  };
+    setImage(img)
+  }
 
   const handleAdd = () => {
     if (Question === "" || Answer === "") {
@@ -49,10 +61,9 @@ const AddQnA = () => {
       " " +
       `${currentDateTime}`;
 
-    const Imagedata = new FormData();
-    Imagedata.append("avatar", userInfo.image);
-    console.log(Imagedata.getAll);
-    console.log(userInfo.image);
+      const formData = new FormData();
+      formData.append("image", image.data);
+      
 
     const data = {
       question: Question,
@@ -60,16 +71,15 @@ const AddQnA = () => {
       status: 1,
       dateLog: date,
       secondary: [],
-      // imageFile: userInfo.image,
-      imageFile: Imagedata,
     };
+
+    formData.append("data",JSON.stringify(data))
 
     console.log(data);
 
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: formData,
     };
     fetch("http://localhost:5000/Questions", requestOptions)
       .then((response) => response)
@@ -141,7 +151,7 @@ const AddQnA = () => {
                 type="file"
                 className="form-control"
                 name="upload_file"
-                onChange={handleInputChangeImage}
+                onChange={handleFileChange}
               />
             </div>
 
@@ -155,11 +165,11 @@ const AddQnA = () => {
             {/* </form> */}
           </div>
           <div className="col-lg-6 text-start ">
-            {userInfo.filepreview !== "" ? (
+            {image.preview !== "" ? (
               <img
                 style={{ marginLeft: "20px" }}
                 className="previewimg"
-                src={userInfo.filepreview}
+                src={image.preview}
                 alt="UploadImage"
                 width="350"
                 height="350"

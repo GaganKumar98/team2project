@@ -9,21 +9,28 @@ import { useFetchMaster } from "../FetchingApi/useFetchMaster";
 
 interface dataDetails{
   id: string,
-  name:string,
-  rolePosition:string
 }
 
 export const UserEdit = (data:dataDetails) => {
 
+  let { kFetch, masterData } = useFetchMaster();
 
-  const [fullName, setFullName] = useState(data.name);
+  const [fullName, setFullName] = useState("");
   
-  const [role, setRole] = useState(data.rolePosition);
+  const [role, setRole] = useState("");
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const MySwal = withReactContent(Swal);
 
+  
+
+  useEffect(() => {
+    kFetch(`http://localhost:5000/userinfo/${data.id}`);
+  }, []);
+  
+
+ 
 
 
 
@@ -65,7 +72,7 @@ export const UserEdit = (data:dataDetails) => {
     setShow(false);
     
   };
-  console.log(data)
+  console.log(data.id)
 
 
 

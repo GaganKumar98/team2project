@@ -1,8 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFetchMaster } from "../FetchingApi/useFetchMaster";
 import { UserEdit } from "./UserEdit";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 
 export const Users = () => {
+
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const MySwal = withReactContent(Swal);
+
+
 
   let { kFetch, masterData } = useFetchMaster();
   useEffect(() => {
@@ -10,6 +23,18 @@ export const Users = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
+
+
+  const handleEdit=()=>{
+    
+
+  }
+  const handleSave = () => {
+
+  }
+
+ 
 
   return (
     <>
@@ -43,7 +68,13 @@ export const Users = () => {
                       Delete
                     </button>
                     &nbsp;
-                    <UserEdit id={data.id} name={data.fullName} rolePosition={data.rolePosition} />
+                    {/* <UserEdit id={data.id} /> */}
+                    <button
+                      className="btn btn-sm btn-warning"
+                      onClick={handleShow}
+                    >
+                      Edit
+                    </button>
                   </td>
                 </tr>
               )
@@ -52,6 +83,48 @@ export const Users = () => {
           </tbody>
         </table>
       </div>
+
+
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="row">
+            <div className="col-md-12">
+              <label>
+                <b>Name</b>
+              </label>
+              <input
+                className="form-control"
+                id="Question"
+                defaultValue=""
+                
+
+              // readOnly
+              />
+              <br />
+
+              <label>
+                <b> Role</b>
+              </label>
+              <select name="Role" className="form-control" id="role" >
+                <option value="Admin">Admin</option>
+                <option value="User">User</option>
+              </select>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleSave}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
