@@ -6,78 +6,72 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useFetchMaster } from "../FetchingApi/useFetchMaster";
 
-
-interface dataDetails{
-  id: string,
-  name:string,
-  rolePosition:string
+interface dataDetails {
+  id: string;
+  name: string;
+  rolePosition: string;
 }
 
-export const UserEdit = (data:dataDetails) => {
-
-
-  const [fullName, setFullName] = useState(data.name);
-  
-  const [role, setRole] = useState(data.rolePosition);
+export const UserEdit = (id: any) => {
+  // const [fullName, setFullName] = useState(name);
+  // const [role, setRole] = useState(rolePosition);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const MySwal = withReactContent(Swal);
+  const { kFetch, masterData } = useFetchMaster();
+  const Did = id.id;
 
+  useEffect(() => {
+    console.log("Did", id);
+    kFetch(`http://localhost:5000/userinfo/${Did}`);
+  }, [id, kFetch]);
 
-
+  // console.log("role", role);
+  // console.log("fullname", fullName);
 
   const handleSave = () => {
-    const data = {
-      fullName: fullName,
-      rolePosition:role
-    };
+    console.log("masterData", masterData);
 
-    const requestOptions = {
-      method: "put",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    };
-    fetch(`http://localhost:5000/userinfo/${data}`, requestOptions)
-      .then((response) => response)
-      .then((res) =>
-        MySwal.fire({
-          position: "center",
-          icon: "success",
-          title: '"Question Answer Edit Sucessfully!',
-          showConfirmButton: false,
-          timer: 1500,
-        })
-      )
-      .catch((error) => {
-        MySwal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-        });
-      });
+    // const data = {
+    //   fullName: fullName,
+    //   rolePosition: role,
+    // };
 
+    // const requestOptions = {
+    //   method: "put",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(data),
+    // };
+    // fetch(`http://localhost:5000/userinfo/${data}`, requestOptions)
+    //   .then((response) => response)
+    //   .then((res) =>
+    //     MySwal.fire({
+    //       position: "center",
+    //       icon: "success",
+    //       title: '"Question Answer Edit Sucessfully!',
+    //       showConfirmButton: false,
+    //       timer: 1500,
+    //     })
+    //   )
+    //   .catch((error) => {
+    //     MySwal.fire({
+    //       icon: "error",
+    //       title: "Oops...",
+    //       text: "Something went wrong!",
+    //     });
+    //   });
 
-
-
-
-    console.log("Handle Save");
+    // console.log("Handle Save");
     setShow(false);
-    
   };
-  console.log(data)
-
-
-
-
-
+  // console.log(data);
 
   return (
     <>
       <Button className="btn btn-sm btn-warning" onClick={handleShow}>
         Edit
       </Button>
-      
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -92,21 +86,26 @@ export const UserEdit = (data:dataDetails) => {
               <input
                 className="form-control"
                 id="Question"
-                defaultValue={fullName}
+                // defaultValue={fullName}
                 onChange={(e) => {
-                  setFullName(e.target.value);
+                  // setFullName(e.target.value);
                 }}
 
-              // readOnly
+                // readOnly
               />
               <br />
 
               <label>
                 <b> Role</b>
               </label>
-              <select name="Role" className="form-control" id="role"  onChange={(e) => {
-                  setRole(e.target.value);
-                }}>
+              <select
+                name="Role"
+                className="form-control"
+                id="role"
+                onChange={(e) => {
+                  // setRole(e.target.value);
+                }}
+              >
                 <option value="Admin">Admin</option>
                 <option value="User">User</option>
               </select>

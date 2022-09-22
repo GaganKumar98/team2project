@@ -3,13 +3,11 @@ import { useFetchMaster } from "../FetchingApi/useFetchMaster";
 import { UserEdit } from "./UserEdit";
 
 export const Users = () => {
-
   let { kFetch, masterData } = useFetchMaster();
   useEffect(() => {
     kFetch("http://localhost:5000/userinfo");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   return (
     <>
@@ -26,29 +24,23 @@ export const Users = () => {
             </tr>
           </thead>
           <tbody>
-
-            {masterData && masterData.map((data: any,key:number) => {
-              return (
-                <tr>
-                  <th scope="row">{key+1}</th>
-                  <td>{data.fullName}</td>
-                  <td>{data.id}</td>
-                  <td>{data.password}</td>
-                  <td>{data.rolePosition}</td>
-                  <td>
-                    <button
-                      className="btn btn-sm btn-danger"
-                    
-                    >
-                      Delete
-                    </button>
-                    &nbsp;
-                    <UserEdit id={data.id} name={data.fullName} rolePosition={data.rolePosition} />
-                  </td>
-                </tr>
-              )
-            })}
-
+            {masterData &&
+              masterData.map((data: any, key: number) => {
+                return (
+                  <tr>
+                    <th scope="row">{key + 1}</th>
+                    <td>{data.fullName}</td>
+                    <td>{data.id}</td>
+                    <td>{data.password}</td>
+                    <td>{data.rolePosition}</td>
+                    <td>
+                      <button className="btn btn-sm btn-danger">Delete</button>
+                      &nbsp;
+                      <UserEdit onClick={data.id} />
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>
