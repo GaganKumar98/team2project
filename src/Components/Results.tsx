@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useFetchResults } from "../FetchingApi/useFetchResults";
 import { Pagination } from "../services/Pgination";
@@ -29,8 +29,7 @@ const Results = ({ searchTerm }: any) => {
   };
   const lastIndex: number = currentPage * postsPerPage;
   const firstIndex: number = lastIndex - postsPerPage;
-  const currentPost =
-    results && results.slice(firstIndex, lastIndex);
+  const currentPost = results && results.slice(firstIndex, lastIndex);
 
   return (
     <div className="container">
@@ -76,6 +75,5 @@ const Results = ({ searchTerm }: any) => {
     </div>
   );
 };
-
 
 export default Results;
