@@ -77,13 +77,14 @@ export const Details = () => {
       });
     } else {
       console.log(Details.Item.secondary);
-      setSecondary((result) => [...result, ...Details.Item.secondary]);
+      // setSecondary((result) => [...result, ...Details.Item.secondary]);
+      setSecondary(Details.Item.secondary);
+
       //setValue(Details.Item.secondary)
       console.log(secondaryData);
     }
   };
 
-  
   return (
     <>
       {Details && (
