@@ -17,6 +17,17 @@ export const Edit = ({ details, onEdit }: any) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [image, setImage] = useState({ preview: '', data: '' })
+
+  const handleFileChange = (e:any) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    }
+    setImage(img)
+  }
+
+
   const handleSave = () => {
     var newAnswer: any = Answer;
     var newQuestion: any = Question;
@@ -43,6 +54,7 @@ export const Edit = ({ details, onEdit }: any) => {
         answer: details.Item.answer,
         modifyInfo: date,
         editId: editId,
+        imgdata:details.Item.imageLocation
       },
       ...details.Item.secondary,
     ];
@@ -67,11 +79,13 @@ export const Edit = ({ details, onEdit }: any) => {
       dateLog: newDate,
       secondary: secondary,
     };
+    const formData = new FormData();
+      formData.append("image", image.data);
+      formData.append("data",JSON.stringify(data))
 
     const requestOptions = {
       method: "put",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: formData,
     };
     fetch(`http://localhost:5000/questions/${Did}`, requestOptions)
       .then((response) => response)
@@ -92,7 +106,7 @@ export const Edit = ({ details, onEdit }: any) => {
         });
       });
 
-    navigate(`/Details/${Did}`);
+    navigate(`/`);
     // window.location.reload();
   };
 
@@ -132,6 +146,16 @@ export const Edit = ({ details, onEdit }: any) => {
                   setAnswer(e.target.value);
                 }}
               ></textarea>
+               <label htmlFor="answer" className="form-label">
+                Select Image
+              </label>
+              <input
+                type="file"
+                className="form-control"
+                name="upload_file"
+                onChange={handleFileChange}
+                
+              />
             </div>
           </div>
         </Modal.Body>

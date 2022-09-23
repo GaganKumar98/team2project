@@ -7,6 +7,7 @@ import withReactContent from "sweetalert2-react-content";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
+
 interface secData {
   question: string;
   answer: string;
@@ -17,7 +18,6 @@ export const Details = () => {
   const { id } = useParams();
   let navigate = useNavigate();
   const [secondaryData, setSecondary] = useState<secData[]>([]);
-
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -29,7 +29,6 @@ export const Details = () => {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
-
   const { Details, kFetch } = useFetchDetails();
   useEffect(() => {
     kFetch(`http://localhost:5000/questions/${id}`);
@@ -38,6 +37,7 @@ export const Details = () => {
   const handleEdit = () => {
     return null;
   };
+ 
   const MySwal = withReactContent(Swal);
   const handleDelete = () => {
     console.log("delete", id);
@@ -63,7 +63,6 @@ export const Details = () => {
           text: "Something went wrong!",
         });
       });
-
     navigate("/");
   };
 
@@ -78,14 +77,12 @@ export const Details = () => {
       console.log(Details.Item.secondary);
       // setSecondary((result) => [...result, ...Details.Item.secondary]);
       setSecondary(Details.Item.secondary);
-
       //setValue(Details.Item.secondary)
       console.log(secondaryData);
     }
   };
 
   console.log(Details);
-
   const { auth, setAuth }: any = useAuth();
 
   if (auth.role === "User")
@@ -105,15 +102,9 @@ export const Details = () => {
                 alt="UploadImage"
                 width="200"
                 height="200"
-                
               />:<></>
-                
                 }
-                
               </div>
-             
-              
-
               {/* Edited Info and Buttons Panel does not show on User*/}
             </div>
           </div>
