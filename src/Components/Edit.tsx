@@ -78,7 +78,9 @@ export const Edit = ({ details, onEdit }: any) => {
       qa: Question + " " + Answer,
       dateLog: newDate,
       secondary: secondary,
+     imgLocation:details.Item.imageLocation
     };
+    
     const formData = new FormData();
       formData.append("image", image.data);
       formData.append("data",JSON.stringify(data))
