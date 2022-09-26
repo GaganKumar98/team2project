@@ -9,7 +9,7 @@ const Login = () => {
   const { setAuth }: any = useAuth();
 
   const navigate = useNavigate();
-  const location:any = useLocation();
+  const location: any = useLocation();
   const from = location.state?.from?.pathname || "/";
 
   const emailRef: any = useRef();
@@ -61,16 +61,16 @@ const Login = () => {
       const role = response.data.Item.rolePosition;
       // setAuth({name, email, pwd, role, accessToken})
       setAuth({ name, id, password, role });
-      console.log(
-        "Name: ",
-        name,
-        "Email: ",
-        id,
-        "Pwd: ",
-        password,
-        "Role: ",
-        role
-      );
+      // console.log(
+      //   "Name: ",
+      //   name,
+      //   "Email: ",
+      //   id,
+      //   "Pwd: ",
+      //   password,
+      //   "Role: ",
+      //   role
+      // );
 
       setEmail("");
       setPwd("");

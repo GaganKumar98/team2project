@@ -106,7 +106,7 @@ export const Users = () => {
         MySwal.fire({
           position: "center",
           icon: "success",
-          title: '"Question Answer Delete!',
+          title: '"User Deleted !',
           showConfirmButton: false,
           timer: 1500,
         })
@@ -135,7 +135,7 @@ export const Users = () => {
               <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
-              <th scope="col">Password</th>
+              {/* <th scope="col">Password</th> */}
               <th scope="col">Role</th>
               <th scope="col">Action</th>
             </tr>
@@ -148,7 +148,7 @@ export const Users = () => {
                     <th scope="row">{key + 1}</th>
                     <td>{data.fullName}</td>
                     <td>{data.id}</td>
-                    <td>{data.password}</td>
+                    {/* <td>{data.password}</td> */}
                     <td>{data.rolePosition}</td>
                     <td>
                       <button
