@@ -1,26 +1,130 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useFetchMaster } from "../FetchingApi/useFetchMaster";
-import { UserEdit } from "./UserEdit";
+// import { UserEdit } from "./UserEdit";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
+import { UserEdit } from "./UserEdit";
+import { useFetchDetails } from "../FetchingApi/useFetchDetails";
+import "./RadioCss.css";
+import { useNavigate } from "react-router-dom";
 
 export const Users = () => {
   const [show, setShow] = useState(false);
-
+  let { kFetch, masterData, setmasterData } = useFetchMaster();
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [editData, seteditData] = useState<React.SetStateAction<any>>();
+  const [role, setRole] = useState<string>();
+  let navigate = useNavigate();
+  const [sId, setsId] = useState<any>();
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 1000,
+    timerProgressBar: true,
+    // didOpen: (toast) => {
+    //   toast.addEventListener("mouseenter", Swal.stopTimer);
+    //   toast.addEventListener("mouseleave", Swal.resumeTimer);
+    // },
+  });
+
+  const handleShow = async (id: any) => {
+    setsId(id);
+    console.log("edi button sid ", sId);
+    console.log("edi button id ", id);
+
+    const _url = `http://localhost:5000/userinfo/${id}`;
+    const response = await fetch(_url);
+    const data = await response.json();
+    console.log("data ", data.Item);
+    seteditData(data.Item);
+    console.log("set edit Data", editData);
+    setShow(true);
+  };
   const MySwal = withReactContent(Swal);
 
-  let { kFetch, masterData } = useFetchMaster();
   useEffect(() => {
     kFetch("http://localhost:5000/userinfo");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [masterData]);
 
   const handleEdit = () => {};
-  const handleSave = () => {};
+
+  const handleSave = () => {
+    console.log("role", role);
+    console.log("SiD", sId);
+
+    const data = {
+      rolePosition: role,
+    };
+    const requestOptions = {
+      method: "put",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+    console.log(sId, "check by anurag");
+
+    fetch(`http://localhost:5000/userinfo/${sId}`, requestOptions)
+      .then((response) => response)
+      .then((res) =>
+        Toast.fire({
+          icon: "success",
+          title: "Update successfully",
+        })
+      )
+      .catch((error) => {
+        MySwal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      });
+    // console.log("master Data", masterData);
+
+    masterData.filter((name: any, Index: any) => {
+      if (name.id === sId) {
+        name.rolePosition = role;
+        // console.log("found");
+      }
+    });
+    // console.log("master Data after edit", masterData);
+    setShow(false);
+    navigate("/master");
+  };
+  const handleDelete = (id: any) => {
+    console.log("delete", sId);
+    const requestOptions = {
+      method: "delete",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch(`http://localhost:5000/userinfo/${id}`, requestOptions)
+      .then((response) => response)
+      .then((res) =>
+        MySwal.fire({
+          position: "center",
+          icon: "success",
+          title: '"Question Answer Delete!',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+      )
+      .catch((error) => {
+        MySwal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      });
+
+    setmasterData((prevMasterData: any[]) =>
+      prevMasterData.filter((masterData) => masterData.id !== sId)
+    );
+
+    navigate("/master");
+  };
 
   return (
     <>
@@ -47,14 +151,20 @@ export const Users = () => {
                     <td>{data.password}</td>
                     <td>{data.rolePosition}</td>
                     <td>
-                      <button className="btn btn-sm btn-danger">Delete</button>
+                      <button
+                        className="btn btn-sm btn-danger"
+                        onClick={() => handleDelete(data.id)}
+                      >
+                        Delete
+                      </button>
                       &nbsp;
                       {/* <UserEdit id={data.id} /> */}
                       <button
                         className="btn btn-sm btn-warning"
-                        onClick={handleShow}
+                        onClick={() => handleShow(data.id)}
                       >
                         Edit
+                        {/* <UserEdit id={data.id} fullName={data.fullName} /> */}
                       </button>
                     </td>
                   </tr>
@@ -68,31 +178,64 @@ export const Users = () => {
         <Modal.Header closeButton>
           <Modal.Title>Edit</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <div className="row">
-            <div className="col-md-12">
-              <label>
-                <b>Name</b>
-              </label>
-              <input
-                className="form-control"
-                id="Question"
-                defaultValue=""
+        {editData && (
+          <Modal.Body>
+            <div className="row">
+              <div className="col-md-12">
+                <label>
+                  <b>Name</b>
+                </label>
+                <input
+                  className="form-control"
+                  id="Question"
+                  defaultValue={editData.fullName}
+                  // readOnly
+                />
+                <br />
 
-                // readOnly
-              />
-              <br />
-
-              <label>
-                <b> Role</b>
-              </label>
-              <select name="Role" className="form-control" id="role">
-                <option value="Admin">Admin</option>
-                <option value="User">User</option>
-              </select>
+                <label>
+                  <b> Role</b>
+                </label>
+                <div>
+                  <input
+                    type="radio"
+                    value="User"
+                    name="role"
+                    // checked={editData.rolePosition === "User"}
+                    defaultChecked={editData.rolePosition === "User"}
+                    onChange={(e) => {
+                      setRole(e.target.value);
+                    }}
+                  />{" "}
+                  User &nbsp;
+                  <input
+                    type="radio"
+                    value="Admin"
+                    name="role"
+                    // checked={editData.rolePosition === "Admin"}
+                    defaultChecked={editData.rolePosition === "Admin"}
+                    onChange={(e) => {
+                      setRole(e.target.value);
+                    }}
+                  />{" "}
+                  Admin &nbsp;
+                  <input
+                    type="radio"
+                    value="Admin"
+                    name="role"
+                    // checked={editData.rolePosition === "Admin"}
+                    defaultChecked={editData.rolePosition === "Master"}
+                    disabled
+                    // onChange={(e) => {
+                    //   setRole(e.target.value);
+                    // }}
+                  />{" "}
+                  Master &nbsp;
+                </div>
+              </div>
             </div>
-          </div>
-        </Modal.Body>
+          </Modal.Body>
+        )}
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close

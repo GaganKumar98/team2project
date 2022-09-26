@@ -8,8 +8,10 @@ export const Header = ({ setSearchTerm }: any) => {
 
   const { auth }: any = useAuth();
   const { setAuth }: any = useAuth();
+  
 
   const searchHandle = (e: any) => {
+    console.log(temp)
     e.preventDefault();
     if (temp === "") {
       alert("Please enter the fields ");

@@ -9,7 +9,7 @@ const Login = () => {
   const { setAuth }: any = useAuth();
 
   const navigate = useNavigate();
-  const location = useLocation();
+  const location:any = useLocation();
   const from = location.state?.from?.pathname || "/";
 
   const emailRef: any = useRef();

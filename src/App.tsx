@@ -23,11 +23,11 @@ function App() {
     <div >
       <header className="App-header">
         <Header
-          // transformedData={transformedData}
-          // kFetch={kFetch}
-          // setTransformedData={setTransformedData}
-          // searchTerm={searchTerm}
-          // setSearchTerm={setSearchTerm}
+          transformedData={transformedData}
+          kFetch={kFetch}
+          setTransformedData={setTransformedData}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
         />
       </header>
       <Routes>

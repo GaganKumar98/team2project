@@ -13,7 +13,9 @@ interface dataDetails {
   rolePosition: string;
 }
 
-export const UserEdit = (id: any) => {
+export const UserEdit = (id: any, fullName: any) => {
+  console.log(id.id);
+  console.log(fullName.fullName);
   // const [fullName, setFullName] = useState(name);
   // const [role, setRole] = useState(rolePosition);
   const [role, setRole] = useState<string>();
@@ -25,7 +27,6 @@ export const UserEdit = (id: any) => {
   const Did = id;
 
   useEffect(() => {
-    console;
     kFetch(`http://localhost:5000/userinfo/${id}`);
   }, [id, kFetch]);
 
@@ -88,10 +89,10 @@ export const UserEdit = (id: any) => {
               <input
                 className="form-control"
                 id="Question"
-                // defaultValue={fullName}
-                onChange={(e) => {
-                  // setFullName(e.target.value);
-                }}
+                defaultValue={fullName.fullname}
+                // onChange={(e) => {
+                //   setFullName(e.target.value);
+                // }}
 
                 // readOnly
               />
@@ -100,7 +101,7 @@ export const UserEdit = (id: any) => {
               <label>
                 <b> Role</b>
               </label>
-              {/* <div>
+              <div>
                 <input
                   type="radio"
                   value="User"
@@ -121,7 +122,7 @@ export const UserEdit = (id: any) => {
                   }}
                 />{" "}
                 Admin &nbp;
-              </div> */}
+              </div>
             </div>
           </div>
         </Modal.Body>

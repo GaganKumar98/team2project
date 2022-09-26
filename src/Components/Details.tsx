@@ -17,7 +17,6 @@ export const Details = () => {
   const { id } = useParams();
   let navigate = useNavigate();
   const [secondaryData, setSecondary] = useState<secData[]>([]);
-
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -29,7 +28,6 @@ export const Details = () => {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
-
   const { Details, kFetch } = useFetchDetails();
   useEffect(() => {
     kFetch(`http://localhost:5000/questions/${id}`);
@@ -38,6 +36,7 @@ export const Details = () => {
   const handleEdit = () => {
     return null;
   };
+
   const MySwal = withReactContent(Swal);
   const handleDelete = () => {
     console.log("delete", id);
@@ -63,7 +62,6 @@ export const Details = () => {
           text: "Something went wrong!",
         });
       });
-
     navigate("/");
   };
 
@@ -78,14 +76,12 @@ export const Details = () => {
       console.log(Details.Item.secondary);
       // setSecondary((result) => [...result, ...Details.Item.secondary]);
       setSecondary(Details.Item.secondary);
-
       //setValue(Details.Item.secondary)
       console.log(secondaryData);
     }
   };
 
   console.log(Details);
-
   const { auth, setAuth }: any = useAuth();
 
   if (auth.role === "User")
@@ -97,22 +93,19 @@ export const Details = () => {
               <div className="col-lg-8 col-md-8 p-4 ">
                 <h3>Question: {Details.Item.question} </h3>
                 <h5>Answer: {Details.Item.answer}</h5>
-                {Details.Item.imageLocation!=="null"?
-                <img
-                style={{ marginLeft: "20px" }}
-                className="previewimg"
-                src={Details.Item.imageLocation}
-                alt="UploadImage"
-                width="200"
-                height="200"
-                
-              />:<></>
-                
-                }
-                
+                {Details.Item.imageLocation !== "null" ? (
+                  <img
+                    style={{ marginLeft: "20px" }}
+                    className="previewimg"
+                    src={Details.Item.imageLocation}
+                    alt="UploadImage"
+                    width="200"
+                    height="200"
+                  />
+                ) : (
+                  <></>
+                )}
               </div>
-             
-              
 
               {/* Edited Info and Buttons Panel does not show on User*/}
             </div>
@@ -132,20 +125,19 @@ export const Details = () => {
               >
                 <h3>Question: {Details.Item.question} </h3>
                 <h5>Answer: {Details.Item.answer}</h5>
-                {Details.Item.imageLocation!=="null"?
-                <img
-                style={{ marginLeft: "20px" }}
-                className="previewimg"
-                src={Details.Item.imageLocation}
-                alt="UploadImage"
-                width="200"
-                height="200"
-                
-              />:<></>
-                
-                }
+                {Details.Item.imageLocation !== "null" ? (
+                  <img
+                    style={{ marginLeft: "20px" }}
+                    className="previewimg"
+                    src={Details.Item.imageLocation}
+                    alt="UploadImage"
+                    width="200"
+                    height="200"
+                  />
+                ) : (
+                  <></>
+                )}
               </div>
-              
 
               {/* Edited Info and Buttons Panel */}
 
