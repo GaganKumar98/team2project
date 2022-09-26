@@ -17,16 +17,15 @@ export const Edit = ({ details, onEdit }: any) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [image, setImage] = useState({ preview: '', data: '' })
+  const [image, setImage] = useState({ preview: "", data: "" });
 
-  const handleFileChange = (e:any) => {
+  const handleFileChange = (e: any) => {
     const img = {
       preview: URL.createObjectURL(e.target.files[0]),
       data: e.target.files[0],
-    }
-    setImage(img)
-  }
-
+    };
+    setImage(img);
+  };
 
   const handleSave = () => {
     var newAnswer: any = Answer;
@@ -54,7 +53,7 @@ export const Edit = ({ details, onEdit }: any) => {
         answer: details.Item.answer,
         modifyInfo: date,
         editId: editId,
-        imgdata:details.Item.imageLocation
+        imgdata: details.Item.imageLocation,
       },
       ...details.Item.secondary,
     ];
@@ -78,12 +77,13 @@ export const Edit = ({ details, onEdit }: any) => {
       qa: Question + " " + Answer,
       dateLog: newDate,
       secondary: secondary,
-      imgLocation:details.Item.imageLocation
+      imgLocation: details.Item.imageLocation,
     };
     
     const formData = new FormData();
       formData.append("image", image.data);
       formData.append("data",JSON.stringify(data))
+
 
     const requestOptions = {
       method: "put",
@@ -108,7 +108,8 @@ export const Edit = ({ details, onEdit }: any) => {
         });
       });
 
-    navigate(`/`);
+    // onEdit();
+    navigate(`/Details/${Did}`);
     // window.location.reload();
   };
 
@@ -148,7 +149,7 @@ export const Edit = ({ details, onEdit }: any) => {
                   setAnswer(e.target.value);
                 }}
               ></textarea>
-               <label htmlFor="answer" className="form-label">
+              <label htmlFor="answer" className="form-label">
                 Select Image
               </label>
               <input
@@ -156,7 +157,6 @@ export const Edit = ({ details, onEdit }: any) => {
                 className="form-control"
                 name="upload_file"
                 onChange={handleFileChange}
-                
               />
             </div>
           </div>

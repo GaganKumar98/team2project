@@ -11,7 +11,7 @@ export const Header = ({ setSearchTerm }: any) => {
   
 
   const searchHandle = (e: any) => {
-    console.log(temp)
+    
     e.preventDefault();
     if (temp === "") {
       alert("Please enter the fields ");

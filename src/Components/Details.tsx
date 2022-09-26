@@ -29,18 +29,17 @@ export const Details = () => {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
-  const { Details, kFetch } = useFetchDetails();
+  const { Details, kFetch, setDetails } = useFetchDetails();
   useEffect(() => {
     kFetch(`http://localhost:5000/questions/${id}`);
-  }, [id, kFetch]);
+  }, [Details]);
 
   const handleEdit = () => {
-    return null;
+    // console.log("details", Details);
+    // setDetails([]);
   };
- 
   const MySwal = withReactContent(Swal);
   const handleDelete = () => {
-    console.log("delete", id);
     const requestOptions = {
       method: "delete",
       headers: { "Content-Type": "application/json" },
@@ -74,15 +73,14 @@ export const Details = () => {
         title: "No Edit History found",
       });
     } else {
-      console.log(Details.Item.secondary);
+      // console.log(Details.Item.secondary);
       // setSecondary((result) => [...result, ...Details.Item.secondary]);
       setSecondary(Details.Item.secondary);
       //setValue(Details.Item.secondary)
-      console.log(secondaryData);
+      // console.log(secondaryData);
     }
   };
 
-  console.log(Details);
   const { auth, setAuth }: any = useAuth();
 
   if (auth.role === "User")
@@ -94,16 +92,18 @@ export const Details = () => {
               <div className="col-lg-8 col-md-8 p-4 ">
                 <h3>Question: {Details.Item.question} </h3>
                 <h5>Answer: {Details.Item.answer}</h5>
-                {Details.Item.imageLocation!=="null"?
-                <img
-                style={{ marginLeft: "20px" }}
-                className="previewimg"
-                src={Details.Item.imageLocation}
-                alt="UploadImage"
-                width="200"
-                height="200"
-              />:<></>
-                }
+                {Details.Item.imageLocation !== "null" ? (
+                  <img
+                    style={{ marginLeft: "20px" }}
+                    className="previewimg"
+                    src={Details.Item.imageLocation}
+                    alt="UploadImage"
+                    width="200"
+                    height="200"
+                  />
+                ) : (
+                  <></>
+                )}
               </div>
               {/* Edited Info and Buttons Panel does not show on User*/}
             </div>
@@ -123,32 +123,34 @@ export const Details = () => {
               >
                 <h3>Question: {Details.Item.question} </h3>
                 <h5>Answer: {Details.Item.answer}</h5>
-                {Details.Item.imageLocation!=="null"?
-                <img
-                style={{ marginLeft: "20px" }}
-                className="previewimg"
-                src={Details.Item.imageLocation}
-                alt="UploadImage"
-                width="200"
-                height="200"
-                
-              />:<></>
-                
-                }
+                {Details.Item.imageLocation !== "null" ? (
+                  <img
+                    style={{ marginLeft: "20px" }}
+                    className="previewimg"
+                    src={Details.Item.imageLocation}
+                    alt="UploadImage"
+                    width="200"
+                    height="200"
+                  />
+                ) : (
+                  <></>
+                )}
               </div>
               
 
               {/* Edited Info and Buttons Panel */}
 
               <div className="col-lg-4 col-md-4">
-                <div className="container d-flex justify-content-between mb-4">
+                <div className="container d-flex text-Center mb-4">
                   <Edit details={Details} onEdit={handleEdit} />
+                  &nbsp; &nbsp;
                   <button
                     className="btn btn-sm btn-danger"
                     onClick={handleDelete}
                   >
                     Delete
                   </button>
+                  &nbsp; &nbsp;
                   <button
                     className="btn btn-sm btn-info"
                     onClick={() => {

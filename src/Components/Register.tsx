@@ -116,7 +116,7 @@ const Register = () => {
       );
       //console.log(response?.data);
       //console.log(response?.accessToken);
-      console.log(JSON.stringify(response));
+     // console.log(JSON.stringify(response));
       // setSuccess(true);
       MySwal.fire({
         position: "center",

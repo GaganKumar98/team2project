@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -9,10 +9,7 @@ const AddQnA = () => {
   let navigate = useNavigate();
   const MySwal = withReactContent(Swal);
 
-  const [userInfo, setuserInfo] = useState({
-    image: "",
-    filepreview: "",
-  });
+ 
 
   const [image, setImage] = useState({ preview: '', data: '' })
 
@@ -42,7 +39,7 @@ const AddQnA = () => {
     setImage(img)
   }
 
-  const handleAdd = () => {
+  const handleAdd = (e:any) => {
     if (Question === "" || Answer === "") {
       alert("please Add all the fields");
       return;
@@ -75,7 +72,7 @@ const AddQnA = () => {
 
     formData.append("data",JSON.stringify(data))
 
-    console.log(data);
+    
 
     const requestOptions = {
       method: "POST",
@@ -103,8 +100,7 @@ const AddQnA = () => {
           timer: 1500,
         });
       });
-
-    navigate("/");
+   navigate("/");
   };
 
   return (
@@ -115,7 +111,7 @@ const AddQnA = () => {
             <h2 style={{ textAlign: "center" }}>
               Add Q<span style={{ color: "red" }}>n</span>A
             </h2>
-            {/* <form> */}
+            <form>
             <div className="mb-3">
               <label htmlFor="question" className="form-label">
                 Question<span style={{ color: "red" }}>*</span>
@@ -124,6 +120,7 @@ const AddQnA = () => {
                 type="text"
                 className="form-control"
                 id="question"
+                value={Question}
                 onChange={(e) => {
                   setQuestion(e.target.value);
                 }}
@@ -138,6 +135,7 @@ const AddQnA = () => {
                 rows={3}
                 className="form-control"
                 id="answer"
+                value={Answer}
                 onChange={(e) => {
                   setAnswer(e.target.value);
                 }}
@@ -162,7 +160,8 @@ const AddQnA = () => {
             >
               Add QnA
             </button>
-            {/* </form> */}
+            
+            </form>
           </div>
           <div className="col-lg-6 text-start ">
             {image.preview !== "" ? (

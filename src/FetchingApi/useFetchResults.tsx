@@ -13,7 +13,6 @@ export const useFetchResults = () => {
         console.log("error");
       }
       const data = await response.json();
-      console.log(data.Items);
 
       setResults(data.Items);
     } catch (err) {
