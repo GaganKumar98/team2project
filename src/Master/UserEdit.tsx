@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+// import { useState } from "react";
 // import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -15,16 +16,17 @@ interface dataDetails {
 export const UserEdit = (id: any) => {
   // const [fullName, setFullName] = useState(name);
   // const [role, setRole] = useState(rolePosition);
+  const [role, setRole] = useState<string>();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const MySwal = withReactContent(Swal);
   const { kFetch, masterData } = useFetchMaster();
-  const Did = id.id;
+  const Did = id;
 
   useEffect(() => {
-    console.log("Did", id);
-    kFetch(`http://localhost:5000/userinfo/${Did}`);
+    console;
+    kFetch(`http://localhost:5000/userinfo/${id}`);
   }, [id, kFetch]);
 
   // console.log("role", role);
@@ -98,17 +100,28 @@ export const UserEdit = (id: any) => {
               <label>
                 <b> Role</b>
               </label>
-              <select
-                name="Role"
-                className="form-control"
-                id="role"
-                onChange={(e) => {
-                  // setRole(e.target.value);
-                }}
-              >
-                <option value="Admin">Admin</option>
-                <option value="User">User</option>
-              </select>
+              {/* <div>
+                <input
+                  type="radio"
+                  value="User"
+                  name="role"
+                  // checked={this.state.selectedOption === "Other"}
+                  onChange={(e) => {
+                    setRole(e.target.value);
+                  }}
+                />{" "}
+                User &nbsp;
+                <input
+                  type="radio"
+                  value="Admin"
+                  name="role"
+                  // checked={this.state.selectedOption === "Other"}
+                  onChange={(e) => {
+                    setRole(e.target.value);
+                  }}
+                />{" "}
+                Admin &nbp;
+              </div> */}
             </div>
           </div>
         </Modal.Body>

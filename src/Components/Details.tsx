@@ -97,7 +97,22 @@ export const Details = () => {
               <div className="col-lg-8 col-md-8 p-4 ">
                 <h3>Question: {Details.Item.question} </h3>
                 <h5>Answer: {Details.Item.answer}</h5>
+                {Details.Item.imageLocation!=="null"?
+                <img
+                style={{ marginLeft: "20px" }}
+                className="previewimg"
+                src={Details.Item.imageLocation}
+                alt="UploadImage"
+                width="200"
+                height="200"
+                
+              />:<></>
+                
+                }
+                
               </div>
+             
+              
 
               {/* Edited Info and Buttons Panel does not show on User*/}
             </div>
@@ -117,7 +132,20 @@ export const Details = () => {
               >
                 <h3>Question: {Details.Item.question} </h3>
                 <h5>Answer: {Details.Item.answer}</h5>
+                {Details.Item.imageLocation!=="null"?
+                <img
+                style={{ marginLeft: "20px" }}
+                className="previewimg"
+                src={Details.Item.imageLocation}
+                alt="UploadImage"
+                width="200"
+                height="200"
+                
+              />:<></>
+                
+                }
               </div>
+              
 
               {/* Edited Info and Buttons Panel */}
 
