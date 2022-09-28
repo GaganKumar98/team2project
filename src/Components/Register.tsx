@@ -1,10 +1,10 @@
-import React from "react";
+
 import { useRef, useState, useEffect } from "react";
 import {
   faCheck,
   faTimes,
   faInfoCircle,
-  faPerson,
+  
   faUser,
   faEnvelope,
   faLock,
@@ -51,7 +51,9 @@ const Register = () => {
 
   const inp = {};
 
+
   useEffect(() => {
+    
     userRef.current.focus();
   }, []);
   //only happens when component loads and set focus on name input
@@ -167,12 +169,7 @@ const Register = () => {
                   <h4>Register</h4>
                 </div>
                 <div className="card-body">
-                  {/* <h5 className="card-title">Special title treatment</h5> */}
-                  {/* <p className="card-text">
-                  </p>
-                  <a href="#" className="btn btn-primary">
-                    Go somewhere
-                  </a> */}
+                  
 
                   <form onSubmit={handleSubmit}>
                     <div className="row">
@@ -269,7 +266,6 @@ const Register = () => {
                             className="form-control"
                           />
                         </div>
-
                         <p
                           id="emnote"
                           className={
@@ -369,7 +365,6 @@ const Register = () => {
                             className="form-control"
                           />
                         </div>
-
                         <p
                           id="confirmnote"
                           className={
@@ -378,6 +373,7 @@ const Register = () => {
                               : "offscreen"
                           }
                         >
+                          
                           <FontAwesomeIcon icon={faInfoCircle} />
                           Must match the first password input field.
                         </p>
@@ -395,12 +391,10 @@ const Register = () => {
                               >
                                 {errMsg}
                               </p>
-
                               <p>
                                 Already registered?
                                 <br />
-                                <span className="line">
-                                  {/*put router link here*/}
+                                <span className="line">                                
                                   <Link to={"/login"}>Sign In</Link>
                                 </span>
                               </p>
@@ -434,7 +428,7 @@ const Register = () => {
                   </form>
                 </div>
               </div>
-              {/* ----- */}
+              
             </div>
           </div>
         </div>

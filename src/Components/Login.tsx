@@ -41,6 +41,7 @@ const Login = () => {
           withCredentials: true,
         }
       );
+      
 
       // const response = await axios.get(LOGIN_URL+email);
       // console.log(response.data.Item);
@@ -75,6 +76,8 @@ const Login = () => {
       setEmail("");
       setPwd("");
       //setSuccess(true);
+      localStorage.setItem('token',response.data.token)
+
 
       navigate(from, { replace: true });
     } catch (err: any) {

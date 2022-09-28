@@ -219,7 +219,7 @@ export const Users = () => {
                   Admin &nbsp;
                   <input
                     type="radio"
-                    value="Admin"
+                    value="Master"
                     name="role"
                     // checked={editData.rolePosition === "Admin"}
                     defaultChecked={editData.rolePosition === "Master"}
