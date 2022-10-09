@@ -18,7 +18,65 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
+  const [resp1, setResp1] = useState<any>();
   //const [success, setSuccess] = useState(false);
+
+
+
+
+
+
+//=====================================================
+useEffect(()=>{
+  const checkLogin = async () => {
+  
+
+    try {
+      const response = await axios.post(
+        "tokeninfo",
+        JSON.stringify({token:localStorage.getItem("token") }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      
+
+      const name = response.data.Item.fullName;
+      const id = response.data.Item.id;
+      const password = response.data.Item.password;
+      const role = response.data.Item.rolePosition;
+      setAuth({ name, id, password, role });
+    
+
+      setEmail("");
+      setPwd("");
+
+
+      navigate(from, { replace: true });
+    } catch (err: any) {
+      if (!err.response) {
+        setErrMsg("No Server Response");
+      } else if (err.response?.status === 400) {
+        setErrMsg("Missing Email or Password");
+      } else if (err.response?.status === 401) {
+        setErrMsg("Invalid Credentials");
+      } else {
+        setErrMsg("Login Failed");
+        
+      localStorage.removeItem('token')
+      }
+      errRef.current.focus();
+    }
+  };
+
+
+  if(localStorage.getItem("token")){
+    checkLogin();
+  }
+})
+
+//=====================================================
 
   useEffect(() => {
     emailRef.current.focus();
@@ -49,7 +107,7 @@ const Login = () => {
 
       //console.log(JSON.stringify(response?.data));
       //console.log(JSON.stringify(response));
-      //const accessToken = response?.data?.accessToken;
+      const accessToken = response?.data?.accessToken;
 
       // var role = response.data.Item.rolePosition;
       // var name = response.data.Item.fullName;
@@ -88,7 +146,9 @@ const Login = () => {
       } else if (err.response?.status === 401) {
         setErrMsg("Invalid Credentials");
       } else {
-        setErrMsg("Login Failed");
+        
+        setErrMsg(" Failed, Please Login again");
+        
       }
       errRef.current.focus();
     }
