@@ -29,8 +29,6 @@ const Login = () => {
 //=====================================================
 useEffect(()=>{
   const checkLogin = async () => {
-  
-
     try {
       const response = await axios.post(
         "tokeninfo",
@@ -73,6 +71,7 @@ useEffect(()=>{
 
   if(localStorage.getItem("token")){
     checkLogin();
+    console.log("hi login")
   }
 })
 
